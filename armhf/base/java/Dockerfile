@@ -1,4 +1,4 @@
-FROM zsoltm/ubuntu-armhf
+FROM zsoltm/ubuntu-armhf:14.01-16.02.2015
 RUN \
     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
     echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" > /etc/apt/sources.list.d/webupd8team-java-trusty.list && \
