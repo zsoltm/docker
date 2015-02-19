@@ -1,6 +1,6 @@
-FROM zsoltm/ubuntu-java-armhf:8u33-16.02.2015 
+FROM zsoltm/ubuntu-java-armhf:8u33-16.02.2015
 
-ENV NEXUS_VERSION 2.11.1-01
+ENV NEXUS_VERSION 2.11.2-03
 ENV PIDDIR /opt/nexus/tmp
 
 WORKDIR /
@@ -21,5 +21,8 @@ RUN export NEXUS_ARCHIVE=nexus-${NEXUS_VERSION}-bundle.tar.gz\
 
 EXPOSE 8081
 
-CMD gosu nexus opt/nexus/bin/nexus console
+VOLUME /opt/sonatype-work
+VOULME /opt/nexus/conf
+VOULME /home/nexus
 
+CMD gosu nexus opt/nexus/bin/nexus console
