@@ -1,17 +1,4 @@
-FROM zsoltm/ubuntu-armhf:14.01.2015
-
-# install gosu
-
-RUN\
- groupadd -r postgres && useradd -r -g postgres postgres &&\
- apt-get -y install wget &&\
- gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 &&\
- export GOSU_URL="https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture)" &&\
- wget -O /usr/local/bin/gosu.asc ${GOSU_URL}.asc &&\
- wget -O /usr/local/bin/gosu ${GOSU_URL} &&\
- gpg --verify /usr/local/bin/gosu.asc &&\
- rm /usr/local/bin/gosu.asc &&\
- chmod +x /usr/local/bin/gosu
+FROM zsoltm/ubuntu-armhf:14.01-16.02.2015
 
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
@@ -30,4 +17,3 @@ COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 5432
 CMD ["postgres"]
-
