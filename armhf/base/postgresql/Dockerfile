@@ -8,6 +8,7 @@ ENV PG_MAJOR 9.3
 RUN apt-get install -y postgresql-common\
  && sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf\
  && apt-get install -y postgresql-${PG_MAJOR} postgresql-contrib\
+ && apt-get clean\
  && mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
 
 ENV PATH /usr/lib/postgresql/${PG_MAJOR}/bin:${PATH}
