@@ -3,7 +3,7 @@ GCC
 
 ## Supported tags
 
-+ [`4.9`, `4.9.2`, `latest` Dockerfile](https://github.com/zsoltm/docker/blob/gcc/buld/gcc/Dockerfile)
++ [`4.9`, `4.9.2`, `latest` Dockerfile](https://github.com/zsoltm/docker/blob/gcc/build/gcc/Dockerfile)
 
 ## How to use this image
 
