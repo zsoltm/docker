@@ -1,9 +1,8 @@
 #! /bin/bash
 
 BUILD_DIR=/tmp/build
-DEBOOTSTRAP_DIR=${BUILD_DIR}/debootstrap
+DEBOOTSTRAP_DIR=`mktemp -d`
 ROOT_FS_TAR=${BUILD_DIR}/rootfs.tar.xz
-mkdir -p ${DEBOOTSTRAP_DIR}
 
 # privileged:
 mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
@@ -36,7 +35,3 @@ touch "${ROOT_FS_TAR}"
     set -x
     tar --numeric-owner -caf "${ROOT_FS_TAR}" -C "${DEBOOTSTRAP_DIR}" --transform='s,^./,,' .
 )
-
-cp /usr/src/jessie/Dockerfile "${BUILD_DIR}"
-
-rm -Rf "${DEBOOTSTRAP_DIR}"
