@@ -21,7 +21,6 @@ debootstrap\
 cp /usr/bin/qemu-arm-static ${DEBOOTSTRAP_DIR}/usr/bin/
 chroot ${DEBOOTSTRAP_DIR}\
  /bin/bash -c "/debootstrap/debootstrap --second-stage && apt-get clean"
-rm ${DEBOOTSTRAP_DIR}/usr/bin/qemu-arm-static
 
 mkdir -p ${DEBOOTSTRAP_DIR}/etc
 cat > ${DEBOOTSTRAP_DIR}/etc/resolv.conf <<'EOF'

@@ -13,9 +13,10 @@ docker run --rm --privileged -t\
  debian:jessie /bin/bash -c /usr/src/jessie/inception.sh || exit 1
 
 docker build\
- -t zsoltm/debian-armhf:latest\
- -t zsoltm/debian-armhf:jessie\
- -t zsoltm/debian-armhf:8\
- -t zsoltm/debian-armhf:8.0 ${BUILD_DIR} || exit 1
+ -t zsoltm/debian-armhf:latest ${BUILD_DIR} || exit 1
+
+for tag in "8" "8.0" "jessie"; do
+  docker tag zsoltm/debian-armhf zsoltm/debian-armhf:${tag} || exit 1
+done
 
 rm -Rf ${BUILD_DIR}
