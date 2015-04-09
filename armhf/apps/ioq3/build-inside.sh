@@ -5,7 +5,7 @@ apt-get update && apt-get install -y --no-install-recommends\
     zip unzip libsdl2-dev makeself
 
 mkdir -p /tmp/build && pushd /tmp/build\
- && wget https://github.com/zsoltm/ioq3/archive/arm-custom.zip\
+ && curl -OkL https://github.com/zsoltm/ioq3/archive/arm-custom.zip\
  && unzip arm-custom.zip\
  && rm arm-custom.zip\
  && pushd ioq3-arm-custom\
