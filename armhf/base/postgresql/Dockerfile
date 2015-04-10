@@ -30,8 +30,7 @@ ENV PGDATA /var/lib/postgresql/data
 RUN apt-get install -y --no-install-recommends postgresql-common\
  && sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf\
  && apt-get install -y --no-install-recommends postgresql-${PG_MAJOR} postgresql-contrib\
- && apt-get clean\
- && mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 VOLUME /var/lib/postgresql/data
 COPY entrypoint.sh /

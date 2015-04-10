@@ -5,7 +5,7 @@ Loosely based on official [docker postgres](https://registry.hub.docker.com/_/po
 
 ## Supported tags
 
-+ [`9.4`, `9.4.1`, `latest` Dockerfile](https://github.com/zsoltm/docker/blob/postgresql-9.4.1-1/armhf/base/postgresql/Dockerfile)
++ [`9.4`, `9.4.1`, `latest` Dockerfile](https://github.com/zsoltm/docker/blob/postgresql-armhf-9.4.1-1/armhf/base/postgresql/Dockerfile)
 
 ## How to use this image
 
