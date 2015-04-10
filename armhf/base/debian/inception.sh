@@ -14,13 +14,15 @@ debootstrap\
  --variant=minbase\
  --arch=armhf\
  --components=main\
- --include=inetutils-ping,iproute2,xz-utils\
+ --include=inetutils-ping,iproute2,xz-utils,bzip2,unzip,psmisc\
  --foreign\
  ${DISTRO} ${DEBOOTSTRAP_DIR} ${DEBIAN_MIRROR}
 
 cp /usr/bin/qemu-arm-static ${DEBOOTSTRAP_DIR}/usr/bin/
-chroot ${DEBOOTSTRAP_DIR}\
- /bin/bash -c "/debootstrap/debootstrap --second-stage && apt-get clean"
+chroot ${DEBOOTSTRAP_DIR} /bin/bash -c "/debootstrap/debootstrap --second-stage\
+ && apt-get clean\
+ && rm -rf /var/lib/apt/lists/*\
+ && echo \"deb ${DEBIAN_MIRROR} jessie main\" > /etc/apt/sources.list"
 
 mkdir -p ${DEBOOTSTRAP_DIR}/etc
 cat > ${DEBOOTSTRAP_DIR}/etc/resolv.conf <<'EOF'
