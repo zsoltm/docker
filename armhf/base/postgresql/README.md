@@ -13,7 +13,7 @@ Primarily it's meant to be linked to an application that uses it.
 
 Start a postgres instance:
 
-    docker run --name postgres-for-shiny-app -e POSTGRES_PASSWORD=mysecretpassword -d zsoltm/postgres-armhf
+    docker run --name postgres-for-shiny-app -e POSTGRES_PASSWORD=mysecretpassword -d zsoltm/postgresql-armhf
 
 ... and and start an application linked to it:
 
@@ -21,7 +21,9 @@ Start a postgres instance:
 
 Optionally if you need to thinker your PostgreSQL DB manually, you might run a `psql` connected to it easily:
 
-    docker run -it --link postgres-for-shiny-app:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U $POSTGRES_ENV_POSTGRES_USER'
+    docker run -it --link postgres-for-shiny-app:postgres --rm \
+     zsoltm/postgresql-armhf sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" \
+     -p "$POSTGRES_PORT_5432_TCP_PORT" -U $POSTGRES_ENV_POSTGRES_USER'
 
 ## Environment Variables
 
