@@ -19,5 +19,3 @@ make install USER=proxy GROUP=proxy
 
 tar czvf /target/privoxy-${rel}-local.tar.gz\
  /usr/local/sbin /usr/local/etc/privoxy /usr/local/share/doc/privoxy /var/log/privoxy
-
-popd
