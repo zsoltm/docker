@@ -1,4 +1,4 @@
-FROM  zsoltm/buildpack-deps:jessie-armhf-scm
+FROM zsoltm/buildpack-deps:jessie-scm-armhf
 
 RUN apt-get update && apt-get install -y \
         autoconf \
@@ -22,4 +22,5 @@ RUN apt-get update && apt-get install -y \
         libxslt-dev \
         libyaml-dev \
         zlib1g-dev \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

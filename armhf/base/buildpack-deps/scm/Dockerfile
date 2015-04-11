@@ -1,4 +1,4 @@
-FROM zsoltm/buildpack-deps:jessie-curl
+FROM zsoltm/buildpack-deps:jessie-curl-armhf
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         bzr \
@@ -6,4 +6,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         mercurial \
         openssh-client \
         subversion \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
