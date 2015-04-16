@@ -1,8 +1,16 @@
-IO-Quake3
-=========
+IO-Quake3 Arena for ARMv7l
+=======================
 
 A Quake 3 Arena client & server bult from latest [IOQuake3](http://ioquake3.org/)
 [sources](https://github.com/zsoltm/ioq3/releases) for ARMv7l architecture.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/zsoltm/ioq3/REL-1.36-2/misc/quake3-tango.png" alt="Q3 Logo"/>
+</p>
+
+## Supported Tags
+
++ [`1.36-3`, `latest` Dockerfile](https://github.com/zsoltm/docker/blob/ioq3-armhf-1.36-3/armhf/apps/ioq3/Dockerfile)
 
 ## Usage
 
