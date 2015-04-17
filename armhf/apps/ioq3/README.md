@@ -17,10 +17,10 @@ A Quake 3 Arena client & server bult from latest [IOQuake3][ioquake3]
 Example command line for running a server with default settings:
 
     docker run -dt\
-      -v `pwd`:/home/q3\
-      --net="host"\
-      --name="quake3"\
-      zsoltm/ioq3-armhf
+     -v `pwd`:/home/q3\
+     --net="host"\
+     --name="quake3"\
+     zsoltm/io-quake3-armhf
 
 That's it, you should be able to connect from Quake 3 by entering `/connect
 your-host-ip` into the game console. In your `pwd` a `.q3a` subdir is created

@@ -39,8 +39,9 @@ RUN useradd -m q3\
  && ln -s ioquake3.armv7l ioquake3\
  && ln -s ioq3ded.armv7l quake3
 
+ENV PORT=27960 \
+    GAME=baseq3
 EXPOSE 27960/udp
-
 VOLUME /home/q3
 
 ENTRYPOINT ["/entrypoint.sh"]
