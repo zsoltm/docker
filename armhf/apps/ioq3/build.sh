@@ -1,6 +1,4 @@
 #! /bin/sh
 
-docker run --rm -t -v `pwd`:/usr/src zsoltm/buildpack-deps:jessie-armhf /usr/src/build-inside.sh \
- && docker build -t zsoltm/ioq3-armhf:latest .
-
-rm ioq3-linux-armv7l.tar.bz2
+image=$(docker build -t zsoltm/io-quake3-armhf:latest .)
+docker tag ${image} zsoltm/io-quake3-armhf:1.36-3
