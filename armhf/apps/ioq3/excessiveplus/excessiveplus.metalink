@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <published>2015-04-18T00:05:41Z</published>
+  <file name="xp-2.3.zip">
+    <size>17266975</size>
+    <hash type="sha-1">09bb75ec59795a516e1369a5a7aee655d9b1c3ba</hash>
+    <url>http://www.excessiveplus.net/files/release/xp-2.3.zip</url>
+  </file>
+</metalink>
