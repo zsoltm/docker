@@ -25,17 +25,8 @@ EOF
     fi
 
     shift
-    exec gosu q3 /usr/local/games/quake3/ioq3ded\
-      +set vm_game 2\
-      +set dedicated ${DEDICATED}\
-      +set fs_game ${GAME}\
-      +set net_port ${PORT}\
-      +set sv_pure ${PURE}\
-      +set sv_maxclients ${MAX_CLIENTS}\
-      +set sv_hostname "${NAME}"\
-      +set rconPassword "${RCON}"\
-      +set fs_basepath /usr/local/games/quake3\
-      +exec server.cfg $@
+    exec supervisord -c /etc/supervisor/supervisord.conf
+
 fi
 
 exec $@
