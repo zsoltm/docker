@@ -10,3 +10,4 @@ RUN cd /usr/local/games/quake3\
  && rm -Rf xp_dedicated.bat xp_server.bat xp_singleplayer.bat excessiveplus/tools
 
 ENV GAME excessiveplus
+ENV NAME "Dockerized ^2/ ^3Excessive ^2/ ^6ARMv7l"
