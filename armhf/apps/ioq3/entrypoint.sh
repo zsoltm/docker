@@ -11,14 +11,11 @@ if [ "$1" = 'ioq3ded' ]; then
         cat > "${serverCfg}" << EOF
 // default FFA server.cfg
 seta sv_fps 30
-seta sv_hostname "Dockerized Q3 ^2/ ^3Vanilla ^2/ ^6ARMv7l"
 seta sv_minRate "0"
-seta sv_maxclients "10"
 seta g_allowVote "0"
 seta g_forcerespawn "5"
 seta bot_nochat "1"
 seta g_gametype "0"
-seta rconPassword "" // no rcon admin allowed
 seta sv_strictauth "1"
 exec map-rotation.cfg
 EOF
@@ -50,12 +47,7 @@ EOF
     fi
 
     shift
-    exec gosu q3 /usr/local/games/quake3/ioq3ded\
-      +set vm_game 2\
-      +set fs_game ${GAME}\
-      +set net_port ${PORT}\
-      +set fs_basepath /usr/local/games/quake3\
-      +exec server.cfg $@
+    exec supervisord -c /etc/supervisor/supervisord.conf
 fi
 
 exec $@
