@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <published>2015-04-16T20:51:33Z</published>
+  <file name="pak0.pk3">
+    <size>479493658</size>
+    <hash type="sha-1">9d588ea65e92944d3e23eeb6ec08f1dd666f4658</hash>
+    <url location="ru" priority="2">http://files.anitalink.com/gamecache/quake3/baseq3/pak0.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak0.pk3</url>
+  </file>
+  <file name="pak1.pk3">
+    <size>374405</size>
+    <hash type="sha-1">0be8c392b0237304fd823206d7b6ef72e0f656d5</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak1.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak1.pk3</url>
+  </file>
+  <file name="pak2.pk3">
+    <size>7511182</size>
+    <hash type="sha-1">507a86bdf8e3a8315f66a6b638fe1cabefd44425</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak2.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak2.pk3</url>
+  </file>
+  <file name="pak3.pk3">
+    <size>276305</size>
+    <hash type="sha-1">8a8719837537b511f39c616e50918f2d1da4686b</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak3.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak3.pk3</url>
+  </file>
+  <file name="pak4.pk3">
+    <size>9600350</size>
+    <hash type="sha-1">d9b27a8e573dcda5dcb286a0e12e82af769c9d8b</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak4.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak4.pk3</url>
+  </file>
+  <file name="pak5.pk3">
+    <size>191872</size>
+    <hash type="sha-1">a6ba9930c5cec6ba7431f6d8750426c221d7522c</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak5.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak5.pk3</url>
+  </file>
+  <file name="pak6.pk3">
+    <size>7346884</size>
+    <hash type="sha-1">5716d9b9099067549f46ca77cf2cc7f8c0f498da</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak6.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak6.pk3</url>
+  </file>
+  <file name="pak7.pk3">
+    <size>320873</size>
+    <hash type="sha-1">c20d9301aa833baaffed2194be46c89c42b5b4d1</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak7.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak7.pk3</url>
+  </file>
+  <file name="pak8.pk3">
+    <size>454478</size>
+    <hash type="sha-1">657e2d95041ca37f7cfb23fa23850d0aad09e26c</hash>
+    <url location="ru" priority="1">http://files.anitalink.com/gamecache/quake3/baseq3/pak8.pk3</url>
+    <url location="us" priority="1">https://github.com/nrempel/q3-server/raw/master/baseq3/pak8.pk3</url>
+  </file>
+</metalink>
