@@ -1,0 +1,39 @@
+postgresql:
+  image: zsoltm/postgresql-armhf
+  environment:
+    - POSTGRES_USER=gitlab
+    - POSTGRES_PASSWORD=password
+  volumes:
+    - /mnt/docker-volumes/gitlab-pgdata:/var/lib/postgresql/data
+gitlab:
+  image: sameersbn/gitlab:7.11.4
+  links:
+    - redis:redisio
+    - postgresql:postgresql
+  ports:
+    - "80:80"
+    - "22:22"
+  environment:
+    - TZ=Europe/Zurich
+    - SMTP_ENABLED=false
+    - SMTP_DOMAIN=www.example.com
+    - SMTP_HOST=smtp.gmail.com
+    - SMTP_PORT=587
+    - SMTP_USER=mailer@example.com
+    - SMTP_PASS=password
+    - SMTP_STARTTLS=true
+    - SMTP_AUTHENTICATION=login
+    - GITLAB_TIMEZONE=Zurich
+    - GITLAB_HOST=git.mapelabs.eu
+    - GITLAB_PORT=80
+    - GITLAB_SSH_PORT=22
+    - GITLAB_EMAIL=git-admin@mapelabs.eu
+    - GITLAB_EMAIL_REPLY_TO=noreply@mapelabs.eu
+    - GITLAB_BACKUPS=disabled
+    - GITLAB_BACKUP_TIME=01:00
+  volumes:
+    - /mnt/docker-volumes/gitlab:/home/git/data
+redis:
+  image: zsoltm/redis-armhf
+  volumes:
+    - /mnt/docker-volumes/gitlab-redis:/data
