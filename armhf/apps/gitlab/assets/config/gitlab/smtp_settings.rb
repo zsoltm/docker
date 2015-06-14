@@ -7,13 +7,13 @@ if Rails.env.production?
   Gitlab::Application.config.action_mailer.delivery_method = :smtp
 
   ActionMailer::Base.smtp_settings = {
-    address: "{{SMTP_HOST}}",
-    port: {{SMTP_PORT}},
-    user_name: "{{SMTP_USER}}",
-    password: "{{SMTP_PASS}}",
-    domain: "{{SMTP_DOMAIN}}",
-    authentication: "{{SMTP_AUTHENTICATION}}",
-    openssl_verify_mode: "{{SMTP_OPENSSL_VERIFY_MODE}}",
-    enable_starttls_auto: {{SMTP_STARTTLS}}
+    address: "email.server.com",
+    port: 456,
+    user_name: "smtp",
+    password: "123456",
+    domain: "gitlab.company.com",
+    authentication: :login,
+    enable_starttls_auto: true,
+    openssl_verify_mode: 'peer' # See ActionMailer documentation for other possible options
   }
 end

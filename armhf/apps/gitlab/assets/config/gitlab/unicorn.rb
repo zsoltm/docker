@@ -11,7 +11,7 @@
 # WARNING: See config/application.rb under "Relative url support" for the list of
 # other files that need to be changed for relative url support
 #
-ENV['RAILS_RELATIVE_URL_ROOT'] = "{{GITLAB_RELATIVE_URL_ROOT}}"
+#ENV['RAILS_RELATIVE_URL_ROOT'] = "{{GITLAB_RELATIVE_URL_ROOT}}"
 
 # Read about unicorn workers here:
 # http://doc.gitlab.com/ee/install/requirements.html#unicorn-workers
