@@ -1,0 +1,21 @@
+user: git
+gitlab_url: "http://localhost:8080/"
+
+# See installation.md#using-https for additional HTTPS configuration details.
+http_settings:
+  self_signed_cert: false
+
+repos_path: "{{GITLAB_DATA_DIR}}/repositories/"
+auth_file: "/home/git/.ssh/authorized_keys"
+
+redis:
+  bin: /usr/bin/redis-cli
+  host: "{{REDIS_HOST}}"
+  port: {{REDIS_PORT}}
+  database: 0
+  namespace: resque:gitlab
+
+log_file: "/var/log/gitlab/gitlab-shell/gitlab-shell.log"
+log_level: INFO
+audit_usernames: false
+git_annex_enabled: false
