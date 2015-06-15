@@ -3,9 +3,11 @@ set -e
 
 if [ ! -e ${GITLAB_DATA_DIR}/ssh/ssh_host_rsa_key ]; then
   # create ssh host keys and move them to the data store.
+  ln -sf /etc/ssh/sshd_config.original /etc/ssh/sshd_config
   dpkg-reconfigure openssh-server
   mkdir -p ${GITLAB_DATA_DIR}/ssh
   mv /etc/ssh/ssh_host_*_key* ${GITLAB_DATA_DIR}/ssh/
+  ln -sf /etc/ssh/sshd_config.gitlab /etc/ssh/sshd_config
 fi
 
 mkdir -p ${GITLAB_DATA_DIR}/config
@@ -29,7 +31,7 @@ fi
 
 if [ ! -e ${GITLAB_DATA_DIR}/.ssh ]; then
   mkdir -m 0770 -p ${GITLAB_DATA_DIR}/.ssh
-  cp /app/config/ssh/* ${GITLAB_DATA_DIR}/.ssh/
+  cp ${GITLAB_HOME}/.ssh.template/* ${GITLAB_DATA_DIR}/.ssh/
   chown -R git:git ${GITLAB_DATA_DIR}/.ssh
   chmod 640 ${GITLAB_DATA_DIR}/.ssh/*
 fi
@@ -76,10 +78,17 @@ if [ ! -e initializers/rack_attack.rb ]; then
   cp /app/config/gitlab/rack_attack.rb initializers/
 fi
 
-# if [ ! -e initializers/smtp_settings.rb ]; then
-#   mkdir -p initializers
-#   cp /app/config/gitlab/smtp_settings.rb initializers/
-# fi
+if [ ! -e initializers/smtp_settings.rb ]; then
+  mkdir -p initializers
+  cp /app/config/gitlab/smtp_settings.rb initializers/
+  sed 's/{{SMTP_HOST}}/'"${SMTP_HOST}"'/;
+   s/{{SMTP_PORT}}/'"${SMTP_PORT}"'/;
+   s/{{SMTP_USER}}/'"${SMTP_USER}"'/;
+   s/{{SMTP_PASSWORD}}/'"${SMTP_PASSWORD}"'/;
+   s/{{SMTP_DOMAIN}}/'"${SMTP_DOMAIN}"'/;
+   s/{{SMTP_AUTH}}/'"${SMTP_AUTH}"'/;
+   s/{{SMTP_VERIFY}}/'"${SMTP_VERIFY}"'/;' -i initializers/smtp_settings.rb
+fi
 
 if [ ! -e nginx/nginx.conf ]; then
   mkdir -p nginx

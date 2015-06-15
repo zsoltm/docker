@@ -64,7 +64,7 @@ rm -Rf ${GITLAB_HOME}/gitlab-shell/.git ${GITLAB_HOME}/gitlab-shell/.gitignore
 chown -R root:root ${GITLAB_HOME}/gitlab-shell
 chown git:git ${GITLAB_HOME}/gitlab-shell
 mkdir -p /app/config/ssh
-cp ${GITLAB_HOME}/.ssh/* /app/config/ssh/
+cp -R ${GITLAB_HOME}/.ssh ${GITLAB_HOME}/.ssh.template
 rm -Rf ${GITLAB_HOME}/repositories  # created by gitlab:shell:install - will be @ data
 
 # externalise configurations
@@ -79,7 +79,7 @@ ln -s ${GITLAB_DATA_DIR}/config/gitlab.yml
 ln -s ${GITLAB_DATA_DIR}/config/unicorn.rb
 pushd initializers
 ln -s ${GITLAB_DATA_DIR}/config/initializers/rack_attack.rb
-# ln -s ${GITLAB_DATA_DIR}/config/initializers/smtp_settings.rb
+ln -s ${GITLAB_DATA_DIR}/config/initializers/smtp_settings.rb
 popd
 popd
 pushd /etc/nginx
@@ -96,12 +96,16 @@ popd
 ln -sf ${GITLAB_DATA_DIR}/config/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Customize SSHD configuration
+pushd /etc/ssh
+mv sshd_config sshd_config.original
 sed 's/UsePAM yes/UsePAM no/;
   s/UsePrivilegeSeparation yes/UsePrivilegeSeparation no/;
   s/#?PasswordAuthentication yes/PasswordAuthentication no/;
   s/LogLevel INFO/LogLevel VERBOSE/
-  s,HostKey /etc/ssh/,HostKey '"${GITLAB_DATA_DIR}"'/ssh/,g' -i /etc/ssh/sshd_config
-echo "UseDNS no" >> /etc/ssh/sshd_config
+  s,HostKey /etc/ssh/,HostKey '"${GITLAB_DATA_DIR}"'/ssh/,g' sshd_config.original > sshd_config.gitlab
+echo "UseDNS no" >> sshd_config.gitlab
+ln -s sshd_config.gitlab sshd_config
+popd
 
 # move supervisord.log file to ${GITLAB_LOG_DIR}/supervisor/
 mkdir -p ${GITLAB_LOG_DIR}/supervisor

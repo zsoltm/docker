@@ -13,4 +13,6 @@
 
 [ -z ${GITLAB_HOST} ] && echo "GITLAB_HOST must be specified!" && exit 1
 [ -z ${GITLAB_EMAIL_FROM} ] && echo "GITLAB_EMAIL_FROM must be specified!" && exit 1
-[ -z ${GITLAB_EMAIL_REPLY_TO} ] && echo "GITLAB_EMAIL_DISPLAY_NAME must be specified!" && exit 1
+
+[[ -z ${SMTP_HOST} || -z ${SMTP_PASSWORD} ]]\
+ && echo "Missing SMTP configuration; SMTP_HOST and SMTP_PASSWORD must be specified at least!" && exit 1

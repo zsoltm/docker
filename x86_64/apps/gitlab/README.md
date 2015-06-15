@@ -45,7 +45,8 @@ A Redis DB container:
 
 GITLAB_HOST -- gitlab host name
 GITLAB_EMAIL_FROM -- email from address
-GITLAB_EMAIL_REPLY_TO -- reply-to address
+SMTP_HOST -- mail server host
+SMTP_PASSWORD -- mail server authentication password
 
 ### Optional:
 
@@ -54,6 +55,7 @@ DB_POOL -- number of pooled DB connections (10)
 GITLAB_ROOT_PASSWORD -- initial root password  (check env.sh for default)
 GITLAB_TIMEZONE -- (Europe/Zurich)
 GITLAB_EMAIL_DISPLAY_NAME -- email display name at from field (Gitlab)
+GITLAB_EMAIL_REPLY_TO -- reply-to address (`GITLAB_EMAIL_FROM`)
 UNICORN_WORKERS -- number of worker processes (CPU cores +1 is the recommended)
 UNICORN_TIMEOUT -- request timeout at unicorn, http level (60)
 SIDEKIQ_CONCURRENCY -- sidekiq is the background task executor, this value specifies how much task could be xecuted in parallel (5)
@@ -64,6 +66,11 @@ DB_PASS -- Postgresql password for authentication
 DB_NAME -- databse name
 REDIS_HOST -- Redis host if not linked
 REDIS_PORT -- Redis port if not linked (6379)
+SMTP_PORT -- port for sending mail (587)
+SMTP_USER -- mail server authentication username (`GITLAB_EMAIL_FROM`)
+SMTP_DOMAIN -- domain name for authentication (domain part of `GITLAB_EMAIL_FROM`)
+SMTP_AUTH -- authentication mode for remote host (plain)
+SMTP_VERIFY -- SSL verification mode of remote mail host (none)
 
 # TODO
 
