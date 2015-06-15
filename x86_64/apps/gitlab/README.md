@@ -55,9 +55,10 @@ GITLAB_TIMEZONE -- (Europe/Zurich)
 GITLAB_EMAIL_DISPLAY_NAME -- email display name at from field (Gitlab)
 UNICORN_WORKERS -- number of worker processes (CPU cores +1 is the recommended)
 UNICORN_TIMEOUT -- request timeout at unicorn, http level (60)
+SIDEKIQ_CONCURRENCY -- sidekiq is the background task executor, this value specifies how much task could be xecuted in parallel (5)
 
 # TODO
 
 + Check `~/gitlab/tmp/cache/...` used by `assets:precompile`, `production` folder was created.
-+ Externalise ${GITLAB_HOME}/.ssh
++ Create a separate volume for repositiories
 

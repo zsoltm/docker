@@ -1,16 +1,16 @@
 #!/bin/bash
-set -e
-
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-. "${DIR}/env.sh"
 . "${DIR}/preconditions.sh"
+. "${DIR}/env.sh"
 
 # populate ${GITLAB_LOG_DIR}
 [ ! -e ${GITLAB_LOG_DIR}/supervisor ] && mkdir -m 0755 -p ${GITLAB_LOG_DIR}/supervisor && chown root:root ${GITLAB_LOG_DIR}/supervisor
 [ ! -e ${GITLAB_LOG_DIR}/nginx ] && mkdir -m 0755 -p ${GITLAB_LOG_DIR}/nginx && chown git:git ${GITLAB_LOG_DIR}/nginx
 [ ! -e ${GITLAB_LOG_DIR}/gitlab ] && mkdir -m 0755 -p ${GITLAB_LOG_DIR}/gitlab && chown git:git ${GITLAB_LOG_DIR}/gitlab
 [ ! -e ${GITLAB_LOG_DIR}/gitlab-shell ] && mkdir -m 0755 -p ${GITLAB_LOG_DIR}/gitlab-shell && chown git:git ${GITLAB_LOG_DIR}/gitlab-shell
+
+set -e
 
 # enable SidekiqMemoryKiller
 export SIDEKIQ_MEMORY_KILLER_MAX_RSS=true
@@ -42,10 +42,10 @@ optionallyInitDb() {
 }
 
 appInit () {
+  . "${DIR}/init_config.sh"
+
   waitForDb
   optionallyInitDb
-
-  . "${DIR}/init_config.sh"
 
   # remove stale unicorn and sidekiq pid's if they exist.
   rm -rf tmp/pids/unicorn.pid
@@ -53,9 +53,6 @@ appInit () {
 
   # remove state unicorn socket if it exists
   rm -rf tmp/sockets/gitlab.socket
-
-    crontab -u git /tmp/cron.git && rm -rf /tmp/cron.git
-  fi
 }
 
 appStart () {

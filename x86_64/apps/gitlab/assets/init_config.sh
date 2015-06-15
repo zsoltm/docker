@@ -11,26 +11,26 @@ fi
 mkdir -p ${GITLAB_DATA_DIR}/config
 # mkdir -p ${GITLAB_DATA_DIR}/tmp/cache
 
-if [ ! -e ${GITLAB_DATA_DIR}/uploads ]
+if [ ! -e ${GITLAB_DATA_DIR}/uploads ]; then
   mkdir -p ${GITLAB_DATA_DIR}/uploads
   chown git:git ${GITLAB_DATA_DIR}/uploads
 fi
 
-if [ ! -e ${GITLAB_DATA_DIR}/repositories ]
+if [ ! -e ${GITLAB_DATA_DIR}/repositories ]; then
   mkdir -p ${GITLAB_DATA_DIR}/repositories
   chown git:git ${GITLAB_DATA_DIR}/repositories
   chmod ug+rwX,o-rwx ${GITLAB_DATA_DIR}/repositories/
 fi
 
-if [ ! -e ${GITLAB_DATA_DIR}/gitlab-satellites ]
+if [ ! -e ${GITLAB_DATA_DIR}/gitlab-satellites ]; then
   mkdir -p ${GITLAB_DATA_DIR}/gitlab-satellites
   chown git:git ${GITLAB_DATA_DIR}/gitlab-satellites
 fi
 
-if [ ! -e ${GITLAB_DATA_DIR}/.ssh ]
+if [ ! -e ${GITLAB_DATA_DIR}/.ssh ]; then
   mkdir -m 0770 -p ${GITLAB_DATA_DIR}/.ssh
   cp /app/config/ssh/* ${GITLAB_DATA_DIR}/.ssh/
-  chown -R root:git ${GITLAB_DATA_DIR}/.ssh
+  chown -R git:git ${GITLAB_DATA_DIR}/.ssh
   chmod 640 ${GITLAB_DATA_DIR}/.ssh/*
 fi
 
@@ -76,10 +76,10 @@ if [ ! -e initializers/rack_attack.rb ]; then
   cp /app/config/gitlab/rack_attack.rb initializers/
 fi
 
-if [ ! -e initializers/smtp_settings.rb ]; then
-  mkdir -p initializers
-  cp /app/config/gitlab/smtp_settings.rb initializers/
-fi
+# if [ ! -e initializers/smtp_settings.rb ]; then
+#   mkdir -p initializers
+#   cp /app/config/gitlab/smtp_settings.rb initializers/
+# fi
 
 if [ ! -e nginx/nginx.conf ]; then
   mkdir -p nginx
@@ -91,8 +91,22 @@ fi
 if [ ! -e nginx/gitlab ]; then
   mkdir -p nginx
   cp /app/config/nginx/gitlab nginx/
-  sed 's|access_log /var/log/nginx/access.log;|access_log '"${GITLAB_LOG_DIR}"'/nginx/access.log;|;
-   s|error_log /var/log/nginx/error.log;|error_log '"${GITLAB_LOG_DIR}"'/nginx/error.log;|' -i nginx/nginx.conf
+  sed 's^{{GITLAB_INSTALL_DIR}}^'"${GITLAB_INSTALL_DIR}"'^;
+   s/{{GITLAB_HOST}}/'"${GITLAB_HOST}"'/' -i nginx/gitlab
+fi
+
+if [ ! -f ssmtp.conf ]; then
+  cp /app/config/ssmtp.conf .
+  echo "Warning: default smsmtp.conf created; please edit"
+fi
+
+if [ ! -f shell/config.yml ]; then
+  mkdir -p shell
+  cp /app/config/gitlab-shell/config.yml shell/
+  sed 's^{{GITLAB_LOG_DIR}}^'"${GITLAB_LOG_DIR}"'^;
+   s^{{GITLAB_DATA_DIR}}^'"${GITLAB_DATA_DIR}"'^;
+   s/{{REDIS_HOST}}/'"${REDIS_HOST}"'/;
+   s/{{REDIS_PORT}}/'"${REDIS_PORT}"'/;' -i shell/config.yml
 fi
 
 popd

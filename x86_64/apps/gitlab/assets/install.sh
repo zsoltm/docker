@@ -8,6 +8,8 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 . "${DIR}/env.sh"
 
+passwd -d git
+
 # set PATH (fixes cron job PATH issues)
 cat >> ${GITLAB_HOME}/.profile <<EOF
 PATH=/usr/local/sbin:/usr/local/bin:\$PATH
@@ -77,7 +79,7 @@ ln -s ${GITLAB_DATA_DIR}/config/gitlab.yml
 ln -s ${GITLAB_DATA_DIR}/config/unicorn.rb
 pushd initializers
 ln -s ${GITLAB_DATA_DIR}/config/initializers/rack_attack.rb
-ln -s ${GITLAB_DATA_DIR}/config/initializers/smtp_settings.rb
+# ln -s ${GITLAB_DATA_DIR}/config/initializers/smtp_settings.rb
 popd
 popd
 pushd /etc/nginx
@@ -91,6 +93,7 @@ popd
 pushd ${GITLAB_SHELL_INSTALL_DIR}
 ln -sf ${GITLAB_DATA_DIR}/config/shell/config.yml
 popd
+ln -sf ${GITLAB_DATA_DIR}/config/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Customize SSHD configuration
 sed 's/UsePAM yes/UsePAM no/;
