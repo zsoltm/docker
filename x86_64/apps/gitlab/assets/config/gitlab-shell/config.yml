@@ -11,7 +11,7 @@ auth_file: "/home/git/.ssh/authorized_keys"
 redis:
   bin: /usr/bin/redis-cli
   host: "{{REDIS_HOST}}"
-  port: {{REDIS_PORT}}
+  port: {{REDIS_TCP_PORT}}
   database: 0
   namespace: resque:gitlab
 

@@ -50,7 +50,7 @@ fi
 if [ ! -e resque.yml ]; then
   cp /app/config/gitlab/resque.yml .
   sed "s/{{REDIS_HOST}}/${REDIS_HOST}/;
-    s/{{REDIS_PORT}}/${REDIS_PORT}/;" -i resque.yml
+    s/{{REDIS_TCP_PORT}}/${REDIS_TCP_PORT}/;" -i resque.yml
 fi
 
 if [ ! -e gitlab.yml ]; then
@@ -115,7 +115,7 @@ if [ ! -f shell/config.yml ]; then
   sed 's^{{GITLAB_LOG_DIR}}^'"${GITLAB_LOG_DIR}"'^;
    s^{{GITLAB_DATA_DIR}}^'"${GITLAB_DATA_DIR}"'^;
    s/{{REDIS_HOST}}/'"${REDIS_HOST}"'/;
-   s/{{REDIS_PORT}}/'"${REDIS_PORT}"'/;' -i shell/config.yml
+   s/{{REDIS_TCP_PORT}}/'"${REDIS_TCP_PORT}"'/;' -i shell/config.yml
 fi
 
 popd

@@ -7,8 +7,8 @@
  && echo "A PostgreSQL image named \"postgres\" must be linked or you should specify DB_HOST, DB_PASS, DB_USER and DB_NAME"\
  && exit 1
 
-# Like PostgreSQL, Redis could also be linked or specified explicitly through REDIS_HOST and REDIS_PORT
-[[ -z ${REDIS_PORT_6379_TCP_ADDR} && (-z ${REDIS_HOST} || -z ${REDIS_PORT}) ]]\
+# Like PostgreSQL, Redis could also be linked or specified explicitly through REDIS_HOST and REDIS_TCP_PORT
+[[ -z ${REDIS_PORT_6379_TCP_ADDR} && -z ${REDIS_HOST} ]]\
  && echo "A Redis image named \"redis\" must be linked" && exit 1
 
 [ -z ${GITLAB_HOST} ] && echo "GITLAB_HOST must be specified!" && exit 1
