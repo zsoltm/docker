@@ -33,5 +33,5 @@ VOLUME ["/home/git/data"]
 VOLUME ["/var/log/gitlab"]
 
 WORKDIR /home/git/gitlab
-# ENTRYPOINT ["/app/entry.sh"]
-# CMD ["app:start"]
+ENTRYPOINT ["/app/entry.sh"]
+CMD ["app:start"]
