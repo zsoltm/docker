@@ -52,6 +52,7 @@ SMTP_PASSWORD -- mail server authentication password
 
 GITLAB_PORT -- http port of gitlab for https use 443 (80)
 DB_POOL -- number of pooled DB connections (10)
+GITLAB_HTTPS_ENABLED -- use `https` protocol in URLs when generating self-links, boolean (false)
 GITLAB_ROOT_PASSWORD -- initial root password  (check env.sh for default)
 GITLAB_TIMEZONE -- (Europe/Zurich)
 GITLAB_EMAIL_DISPLAY_NAME -- email display name at from field (Gitlab)
