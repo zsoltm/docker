@@ -27,7 +27,7 @@ Start like
 
 It expects a Redis and a PostgreSQL container being linked named as "gitlab-redis" and "gitlab-postgresql"
 respectively. Optionally external Postrges instance could be specified with `DB_*` environment variables
-and / or Redis by REDIS_HOST and REDIS_PORT parameters.
+and / or Redis by REDIS_HOST and REDIS_TCP_PORT parameters.
 
 # Requirements
 
@@ -56,6 +56,7 @@ GITLAB_ROOT_PASSWORD -- initial root password  (check env.sh for default)
 GITLAB_TIMEZONE -- (Europe/Zurich)
 GITLAB_EMAIL_DISPLAY_NAME -- email display name at from field (Gitlab)
 GITLAB_EMAIL_REPLY_TO -- reply-to address (`GITLAB_EMAIL_FROM`)
+GITLAB_REPO_ROOT -- gitlab repostory root - if yo'd like to move it out from data volume
 UNICORN_WORKERS -- number of worker processes (CPU cores +1 is the recommended)
 UNICORN_TIMEOUT -- request timeout at unicorn, http level (60)
 SIDEKIQ_CONCURRENCY -- sidekiq is the background task executor, this value specifies how much task could be xecuted in parallel (5)
@@ -65,7 +66,7 @@ DB_USER -- Postgresql username for authentication
 DB_PASS -- Postgresql password for authentication
 DB_NAME -- databse name
 REDIS_HOST -- Redis host if not linked
-REDIS_PORT -- Redis port if not linked (6379)
+REDIS_TCP_PORT -- Redis port if not linked (6379)
 SMTP_PORT -- port for sending mail (587)
 SMTP_USER -- mail server authentication username (`GITLAB_EMAIL_FROM`)
 SMTP_DOMAIN -- domain name for authentication (domain part of `GITLAB_EMAIL_FROM`)
@@ -75,4 +76,3 @@ SMTP_VERIFY -- SSL verification mode of remote mail host (none)
 # TODO
 
 + Check `~/gitlab/tmp/cache/...` used by `assets:precompile`, `production` folder was created.
-+ Create a separate volume for repositiories

@@ -18,10 +18,10 @@ if [ ! -e ${GITLAB_DATA_DIR}/uploads ]; then
   chown git:git ${GITLAB_DATA_DIR}/uploads
 fi
 
-if [ ! -e ${GITLAB_DATA_DIR}/repositories ]; then
-  mkdir -p ${GITLAB_DATA_DIR}/repositories
-  chown git:git ${GITLAB_DATA_DIR}/repositories
-  chmod ug+rwX,o-rwx ${GITLAB_DATA_DIR}/repositories/
+if [ ! -e ${GITLAB_REPO_ROOT}/repositories ]; then
+  mkdir -p ${GITLAB_REPO_ROOT}/repositories
+  chown git:git ${GITLAB_REPO_ROOT}/repositories
+  chmod ug+rwX,o-rwx ${GITLAB_REPO_ROOT}/repositories/
 fi
 
 if [ ! -e ${GITLAB_DATA_DIR}/gitlab-satellites ]; then
@@ -63,6 +63,7 @@ if [ ! -e gitlab.yml ]; then
     s/{{GITLAB_EMAIL_REPLY_TO}}/'"${GITLAB_EMAIL_REPLY_TO}"'/;
     s^{{GITLAB_DATA_DIR}}^'"${GITLAB_DATA_DIR}"'^;
     s^{{GITLAB_BACKUP_DIR}}^'"${GITLAB_BACKUP_DIR}"'^;
+    s^{{GITLAB_REPO_ROOT}}^'"${GITLAB_REPO_ROOT}"'^;
     s^{{GITLAB_SHELL_INSTALL_DIR}}^'"${GITLAB_SHELL_INSTALL_DIR}"'^' -i gitlab.yml
 fi
 
@@ -115,6 +116,7 @@ if [ ! -f shell/config.yml ]; then
   sed 's^{{GITLAB_LOG_DIR}}^'"${GITLAB_LOG_DIR}"'^;
    s^{{GITLAB_DATA_DIR}}^'"${GITLAB_DATA_DIR}"'^;
    s/{{REDIS_HOST}}/'"${REDIS_HOST}"'/;
+   s^{{GITLAB_REPO_ROOT}}^'"${GITLAB_REPO_ROOT}"'^;
    s/{{REDIS_TCP_PORT}}/'"${REDIS_TCP_PORT}"'/;' -i shell/config.yml
 fi
 

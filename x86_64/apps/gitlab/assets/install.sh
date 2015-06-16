@@ -65,7 +65,7 @@ chown -R root:root ${GITLAB_HOME}/gitlab-shell
 chown git:git ${GITLAB_HOME}/gitlab-shell
 mkdir -p /app/config/ssh
 cp -R ${GITLAB_HOME}/.ssh ${GITLAB_HOME}/.ssh.template
-rm -Rf ${GITLAB_HOME}/repositories  # created by gitlab:shell:install - will be @ data
+rm -Rf ${GITLAB_HOME}/repositories  # created by gitlab:shell:install with default config
 
 # externalise configurations
 rm -rf ${GITLAB_HOME}/.ssh

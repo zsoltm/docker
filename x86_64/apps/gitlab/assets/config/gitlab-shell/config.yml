@@ -5,7 +5,7 @@ gitlab_url: "http://localhost:8080/"
 http_settings:
   self_signed_cert: false
 
-repos_path: "{{GITLAB_DATA_DIR}}/repositories/"
+repos_path: "{{GITLAB_REPO_ROOT}}/repositories/"
 auth_file: "/home/git/.ssh/authorized_keys"
 
 redis:
