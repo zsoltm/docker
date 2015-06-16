@@ -3,7 +3,7 @@ Gitlab
 
 ## Supported tags and respective `Dockerfile` links
 
--   [`latest`, `1.9.1` (*Dockerfile*)](https://github.com/zsoltm/docker/blob/gitlab-7.11.4-1/x86_64/apps/gitlab/Dockerfile)
+-   [`latest`, `7.11.4` (*Dockerfile*)](https://github.com/zsoltm/docker/blob/gitlab-7.11.4-1/x86_64/apps/gitlab/Dockerfile)
 
 ![logo](https://about.gitlab.com/images/gitlab_logo.png)
 
