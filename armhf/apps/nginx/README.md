@@ -1,8 +1,6 @@
 # Supported tags and respective `Dockerfile` links
 
--   [`latest`, `1`, `1.9`, `1.9.1` (*Dockerfile*)](https://github.com/nginxinc/docker-nginx/blob/6ef443bc3e04a584955cbe960c70fc2e8b7a0156/Dockerfile)
-
-For more information about this image and its history, please see the [relevant manifest file (`library/nginx`)](https://github.com/docker-library/official-images/blob/master/library/nginx) in the [`docker-library/official-images` GitHub repo](https://github.com/docker-library/official-images).
+-   [`latest`, `1.9.1` (*Dockerfile*)](https://github.com/zsoltm/docker/blob/nginx-armhf-1.9.1-1/armhf/apps/nginx/Dockerfile)
 
 # What is Nginx?
 
@@ -16,7 +14,7 @@ Nginx (pronounced "engine-x") is an open source reverse proxy server for HTTP, H
 
 ## hosting some simple static content
 
-    docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx
+    docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d zsoltm/nginx-armhf
 
 Alternatively, a simple `Dockerfile` can be used to generate a new image that includes the necessary content (which is a much cleaner solution than the bind mount above):
 
@@ -35,7 +33,7 @@ Then you can hit `http://localhost:8080` or `http://host-ip:8080` in your browse
 
 ## complex configuration
 
-    docker run --name some-nginx -v /some/nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
+    docker run --name some-nginx -v /some/nginx.conf:/etc/nginx/nginx.conf:ro -d zsoltm/nginx-armhf
 
 For information on the syntax of the Nginx configuration files, see [the official documentation](http://nginx.org/en/docs/) (specifically the [Beginner's Guide](http://nginx.org/en/docs/beginners_guide.html#conf_structure)).
 
@@ -59,21 +57,3 @@ Then, build with `docker build -t some-custom-nginx .` and run:
 This image is officially supported on Docker version 1.6.2.
 
 Support for older versions (down to 1.0) is provided on a best-effort basis.
-
-# User Feedback
-
-## Documentation
-
-Documentation for this image is stored in the [`nginx/` directory](https://github.com/docker-library/docs/tree/master/nginx) of the [`docker-library/docs` GitHub repo](https://github.com/docker-library/docs). Be sure to familiarize yourself with the [repository's `README.md` file](https://github.com/docker-library/docs/blob/master/README.md) before attempting a pull request.
-
-## Issues
-
-If you have any problems with or questions about this image, please contact us through a [GitHub issue](https://github.com/nginxinc/docker-nginx/issues).
-
-You can also reach many of the official image maintainers via the `#docker-library` IRC channel on [Freenode](https://freenode.net).
-
-## Contributing
-
-You are invited to contribute new features, fixes, or updates, large or small; we are always thrilled to receive pull requests, and do our best to process them as fast as we can.
-
-Before you start to code, we recommend discussing your plans through a [GitHub issue](https://github.com/nginxinc/docker-nginx/issues), especially for more ambitious contributions. This gives other contributors a chance to point you in the right direction, give you feedback on your design, and help you find out if someone else is working on the same thing.
