@@ -27,7 +27,7 @@ production: &base
     ## Web server settings (note: host is the FQDN, do not include http://)
     host: "{{GITLAB_HOST}}"
     port: {{GITLAB_PORT}}
-    https: false
+    https: {{GITLAB_HTTPS_ENABLED}}
 
     # Uncommment this line below if your ssh host is different from HTTP/HTTPS one
     # (you'd obviously need to replace ssh.host_example.com with your own host).
@@ -172,7 +172,7 @@ production: &base
     path: "{{GITLAB_SHELL_INSTALL_DIR}}/"
 
     # REPOS_PATH MUST NOT BE A SYMLINK!!!
-    repos_path: "{{GITLAB_DATA_DIR}}/repositories/"
+    repos_path: "{{GITLAB_REPO_ROOT}}/repositories/"
     hooks_path: "{{GITLAB_SHELL_INSTALL_DIR}}/hooks/"
 
     # Git over HTTP

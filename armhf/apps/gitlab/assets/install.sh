@@ -8,19 +8,20 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 . "${DIR}/env.sh"
 
+passwd -d git
+
 # set PATH (fixes cron job PATH issues)
 cat >> ${GITLAB_HOME}/.profile <<EOF
 PATH=/usr/local/sbin:/usr/local/bin:\$PATH
 EOF
 
-ln -sf ${GITLAB_DATA_DIR}/.ssh ${GITLAB_HOME}/.ssh
-
 # fetch gitlab-ce source
 echo "Fetching gitlab source v${GITLAB_VERSION}..."
-curl -kLSo gitlab-cs-src-${GITLAB_VERSION}.tar.gz https://gitlab.com/gitlab-org/gitlab-ce/repository/archive.tar.gz?ref=v${GITLAB_VERSION}
-mkdir ${GITLAB_INSTALL_DIR}
+curl -kLSo gitlab-cs-src-${GITLAB_VERSION}.tar.gz\
+ https://gitlab.com/gitlab-org/gitlab-ce/repository/archive.tar.gz?ref=v${GITLAB_VERSION}
+mkdir -p ${GITLAB_INSTALL_DIR}
 tar xvf gitlab-cs-src-${GITLAB_VERSION}.tar.gz --strip-components=1 -C ${GITLAB_INSTALL_DIR}
-rm gitlab-cs-src-${GITLAB_VERSION}.tar.gz
+rm /gitlab-cs-src-${GITLAB_VERSION}.tar.gz
 pushd ${GITLAB_INSTALL_DIR}
 chown git:git .
 
@@ -32,19 +33,15 @@ rm -rf log
 ln -sf ${GITLAB_LOG_DIR}/gitlab log
 mkdir -p ${GITLAB_LOG_DIR}/gitlab
 chown git:git ${GITLAB_LOG_DIR}/gitlab
-
+mkdir -p public/assets
+chown -R git:git public/assets
 chown -R git:git tmp
 
-# create symlink to assets in tmp/cache
-rm -rf tmp/cache
-ln -sf ${GITLAB_DATA_DIR}/tmp/cache tmp/cache
-
 # create symlink to uploads directory
-
+rm -rf public/uploads
 ln -sf ${GITLAB_DATA_DIR}/uploads public/uploads
 
 # install gems required by gitlab, use local cache if available
-tar xvf /tmp/out/bundle.tar.gz
 sudo -u git -H bundle install --deployment --without development test mysql aws kerberos
 
 # initialising config with defaults on order to make gitlab-shell and asset generation tasks happy
@@ -55,6 +52,10 @@ popd
 
 sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
 
+# create symlink to assets in tmp/cache
+#rm -rf tmp/cache
+#ln -sf ${GITLAB_DATA_DIR}/tmp/cache tmp/cache
+
 # install gitlab-shell
 mkdir -p ${GITLAB_LOG_DIR}/gitlab-shell
 chown git:git ${GITLAB_LOG_DIR}/gitlab-shell
@@ -62,8 +63,13 @@ sudo -u git -H bundle exec rake gitlab:shell:install[v${GITLAB_SHELL_VERSION}] R
 rm -Rf ${GITLAB_HOME}/gitlab-shell/.git ${GITLAB_HOME}/gitlab-shell/.gitignore
 chown -R root:root ${GITLAB_HOME}/gitlab-shell
 chown git:git ${GITLAB_HOME}/gitlab-shell
+mkdir -p /app/config/ssh
+cp -R ${GITLAB_HOME}/.ssh ${GITLAB_HOME}/.ssh.template
+rm -Rf ${GITLAB_HOME}/repositories  # created by gitlab:shell:install with default config
 
 # externalise configurations
+rm -rf ${GITLAB_HOME}/.ssh
+ln -sf ${GITLAB_DATA_DIR}/.ssh ${GITLAB_HOME}/.ssh
 pushd ${GITLAB_INSTALL_DIR}/config
 rm database.yml
 rm gitlab.yml
@@ -79,7 +85,7 @@ popd
 pushd /etc/nginx
 ln -sf ${GITLAB_DATA_DIR}/config/nginx/nginx.conf
 rm -f sites-enabled/default
-rm 
+ln -s ${GITLAB_DATA_DIR}/config/nginx/gitlab sites-enabled/gitlab
 pushd conf.d
 ln -sf ${GITLAB_DATA_DIR}/config/nginx/conf.d/gitlab
 popd
@@ -87,13 +93,19 @@ popd
 pushd ${GITLAB_SHELL_INSTALL_DIR}
 ln -sf ${GITLAB_DATA_DIR}/config/shell/config.yml
 popd
+ln -sf ${GITLAB_DATA_DIR}/config/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Customize SSHD configuration
+pushd /etc/ssh
+mv sshd_config sshd_config.original
 sed 's/UsePAM yes/UsePAM no/;
   s/UsePrivilegeSeparation yes/UsePrivilegeSeparation no/;
   s/#?PasswordAuthentication yes/PasswordAuthentication no/;
-  s/LogLevel INFO/LogLevel VERBOSE/' -i /etc/ssh/sshd_config
-echo "UseDNS no" >> /etc/ssh/sshd_config
+  s/LogLevel INFO/LogLevel VERBOSE/
+  s,HostKey /etc/ssh/,HostKey '"${GITLAB_DATA_DIR}"'/ssh/,g' sshd_config.original > sshd_config.gitlab
+echo "UseDNS no" >> sshd_config.gitlab
+ln -s sshd_config.gitlab sshd_config
+popd
 
 # move supervisord.log file to ${GITLAB_LOG_DIR}/supervisor/
 mkdir -p ${GITLAB_LOG_DIR}/supervisor
@@ -101,8 +113,11 @@ sed 's|^logfile=.*|logfile='"${GITLAB_LOG_DIR}"'/supervisor/supervisord.log ;|' 
 
 # move nginx logs to ${GITLAB_LOG_DIR}/nginx
 mkdir -p "${GITLAB_LOG_DIR}/nginx"
-sed 's|access_log /var/log/nginx/access.log;|access_log '"${GITLAB_LOG_DIR}"'/nginx/access.log;|;
-  s|error_log /var/log/nginx/error.log;|error_log '"${GITLAB_LOG_DIR}"'/nginx/error.log;|' -i /etc/nginx/nginx.conf
+
+# configure git
+sudo -u git -H git config --global user.name "GitLab"
+sudo -u git -H git config --global user.email "${GITLAB_EMAIL}"
+sudo -u git -H git config --global core.autocrlf input
 
 # configure supervisord log rotation
 cat > /etc/logrotate.d/supervisord <<EOF
@@ -164,7 +179,7 @@ cat > /etc/supervisor/conf.d/sidekiq.conf <<EOF
 priority=10
 directory=${GITLAB_INSTALL_DIR}
 environment=HOME=${GITLAB_HOME}
-command=bundle exec sidekiq -c {{SIDEKIQ_CONCURRENCY}}
+command=bundle exec sidekiq -c ${SIDEKIQ_CONCURRENCY}
   -q post_receive
   -q mailer
   -q archive_repo
@@ -174,7 +189,7 @@ command=bundle exec sidekiq -c {{SIDEKIQ_CONCURRENCY}}
   -q common
   -q default
   -e production
-  -t {{SIDEKIQ_SHUTDOWN_TIMEOUT}}
+  -t ${SIDEKIQ_SHUTDOWN_TIMEOUT}
   -P ${GITLAB_INSTALL_DIR}/tmp/pids/sidekiq.pid
   -L ${GITLAB_INSTALL_DIR}/log/sidekiq.log
 user=git
