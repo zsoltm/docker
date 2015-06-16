@@ -3,7 +3,7 @@ Gitlab
 
 ## Supported tags and respective `Dockerfile` links
 
--   [`latest`, `7.11.4` (*Dockerfile*)](https://github.com/zsoltm/docker/blob/gitlab-7.11.4-1/x86_64/apps/gitlab/Dockerfile)
+-   [`latest`, `7.11.4` (*Dockerfile*)](https://github.com/zsoltm/docker/blob/gitlab-armhf-7.11.4-1/armhf/apps/gitlab/Dockerfile)
 
 ![logo](https://about.gitlab.com/images/gitlab_logo.png)
 
@@ -21,14 +21,14 @@ Some features are removed for sake of simplicity and easier configuration / depe
 + Only PostgreSQL is supported as a DB backend - Postgres is the recommended DB by Gitlab anyway.
 + Removed HTTPS support; use a load balancer or front-end proxy with HTTPS support.
 
-Start like
+Start it like:
 
     docker run -it -p 80:80 -p 22:22\
      --link=gitlab-redis:redis\
      --link=gitlab-postgres:postgres\
      -v /some/data-dir:/home/git/data\
-     -e GITLAB_HOST=jessie.vm\
-     -e GITLAB_EMAIL_FROM=daemon@mapelabs.eu\
+     -e GITLAB_HOST=gitlab.example.com\
+     -e GITLAB_EMAIL_FROM=gitlab@example.com\
      -e SMTP_HOST=smtp.gmail.com\
      -e SMTP_PASSWORD=soomepassword\
      zsoltm/gitlab-armhf
