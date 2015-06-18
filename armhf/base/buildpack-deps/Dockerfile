@@ -1,4 +1,4 @@
-FROM zsoltm/buildpack-deps:jessie-scm-armhf
+FROM zsoltm/buildpack-deps-scm-armhf:jessie
 
 RUN apt-get update && apt-get install -y \
         autoconf \
