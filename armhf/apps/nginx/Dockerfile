@@ -2,8 +2,8 @@ FROM zsoltm/debian-armhf:jessie
 
 # docker run -p 80:80 -v `pwd`:/usr/share/nginx/html:ro -d 
 
-COPY nginx_1.9.1-1~jessie_armhf.deb /
-ENV NGINX_VERSION 1.9.1-1~jessie
+COPY nginx_1.9.2-1~jessie_armhf.deb /
+ENV NGINX_VERSION 1.9.2-1~jessie
 
 RUN apt-get update\
  && apt-get install -y libssl1.0.0 ca-certificates\
