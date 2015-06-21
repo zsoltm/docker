@@ -1,4 +1,4 @@
-postgresql:
+gitlab-postgresql:
   image: zsoltm/postgresql-armhf
   environment:
     - POSTGRES_USER=gitlab
@@ -6,10 +6,10 @@ postgresql:
   volumes:
     - /mnt/docker-volumes/gitlab-pgdata:/var/lib/postgresql/data
 gitlab:
-  image: sameersbn/gitlab:7.11.4
+  image: zsoltm/gitlab-armhf:7.11.4
   links:
-    - redis:redisio
-    - postgresql:postgresql
+    - gitlab-redis:redis
+    - gitlab-postgresql:postgresql
   ports:
     - "80:80"
     - "22:22"
@@ -33,7 +33,7 @@ gitlab:
     - GITLAB_BACKUP_TIME=01:00
   volumes:
     - /mnt/docker-volumes/gitlab:/home/git/data
-redis:
+gitlab-redis:
   image: zsoltm/redis-armhf
   volumes:
     - /mnt/docker-volumes/gitlab-redis:/data

@@ -6,8 +6,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 . "${DIR}/../assets/env.sh"
 
-# apt-get update
-
+apt-get update
 apt-get install -y --no-install-recommends\
  libgmp-dev\
  ruby2.1-dev\

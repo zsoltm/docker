@@ -23,7 +23,7 @@ RUN adduser --disabled-login --gecos 'GitLab' git\
  && ln -s /usr/bin/ruby2.1 /usr/bin/ruby\
  && ln -s /usr/bin/gem2.1 /usr/bin/gem\
  && gem install --no-document bundler\
- && rm -rf /var/lib/apt/lists/*\
+ && apt-get clean && rm -rf /var/lib/apt/lists/*\
  && /app/install.sh
 
 EXPOSE 22

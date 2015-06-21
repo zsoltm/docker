@@ -4,30 +4,28 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 . "${DIR}/assets/env.sh"
 
-prebuildDeps="$1"
+prebuiltDeps="$1"
 tmpDir=`mktemp -d`
 
-if [[ -z "$1" || ! -e "$1" ]]; then
+if [[ -z "${prebuiltDeps}" || ! -e "${prebuiltDeps}" ]]; then
     echo "Prebuilt dependencies not found; building"
-    cp ${DIR}/
     docker run -it --rm\
      -e GITLAB_VERSION=${GITLAB_VERSION}\
-     -v ${DIR}:/usr/src/gitlab-docker\
+     -v ${DIR}:/mnt/host:ro\
      -v ${tmpDir}:/tmp/out\
      buildpack-deps:jessie\
-     /usr/src/gitlab-docker/build-bundle/build_inside.sh
+     /mnt/host/build-bundle/build_inside.sh
     prebuildDeps="${tmpDir}/gitlab-bundle.tar.gz"
 else
-    echo "Using prebuilt dependencies bundle: ${prebuildDeps}"
-    if [ "${prebuildDeps}" != "${tmpDir}/gitlab-bundle.tar.gz" ]; then
-        cp ${prebuildDeps} ${tmpDir}/gitlab-bundle.tar.gz
-    fi
+    echo "Using prebuilt dependencies bundle: ${prebuiltDeps}"
+fi
+
+if [ "${prebuiltDeps}" != "${tmpDir}/gitlab-bundle.tar.gz" ]; then
+    cp ${prebuiltDeps} ${tmpDir}/gitlab-bundle.tar.gz
 fi
 
 pushd ${tmpDir}
 cp -R "${DIR}/assets" .
 ln -s "${DIR}/Dockerfile"
-docker build .
+docker build -t zsoltm/gitlab .
 popd ${tmpDir}
-
-zsoltm/gitlab:${GITLAB_VERSION}-latest
