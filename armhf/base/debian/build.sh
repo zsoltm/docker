@@ -16,7 +16,7 @@ docker build\
  -t zsoltm/debian-armhf:latest ${BUILD_DIR} || exit 1
 
 for tag in "8" "8.0" "jessie"; do
-  docker tag zsoltm/debian-armhf zsoltm/debian-armhf:${tag} || exit 1
+  docker tag -f zsoltm/debian-armhf zsoltm/debian-armhf:${tag} || exit 1
 done
 
 rm -Rf ${BUILD_DIR}
