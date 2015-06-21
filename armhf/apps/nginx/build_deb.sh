@@ -10,6 +10,11 @@ apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6A
 apt-get update
 
 arch=`dpkg --print-architecture`
-pushd ${tmpDir}
-apt-get --build source nginx=${NGINX_VERSION}
+pushd /tmp/out
+mkdir -p nginx-src
+cd nginx-src
+apt-get --build source nginx=${VERSION}
+mv nginx_${VERSION}_armhf.deb ..
+cd ..
+rm -Rf nginx-src
 popd
