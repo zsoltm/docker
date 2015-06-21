@@ -1,0 +1,779 @@
+privoxy (3.0.23-3) unstable; urgency=medium
+
+  * Since there are no new bugs found, this goes to unstable now.
+  * Depend on perl-base instead of full perl.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 26 Apr 2015 11:01:08 +0200
+
+privoxy (3.0.23-2) experimental; urgency=low
+
+  * Fix cleanup to allow build twice in a row.
+  * Preserve auto build configuration from source package.
+  * This version checks and fails if the config file has erros
+    (Closes: #518006).
+  * init script is no longer silent (Closes: #543811).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 31 Jan 2015 12:31:26 +0100
+
+privoxy (3.0.23-1) experimental; urgency=low
+
+  * New upstream version 3.0.23-stable.
+  * Update all patches.
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 26 Jan 2015 14:15:47 +0100
+
+privoxy (3.0.22-1) unstable; urgency=low
+
+  * New upstream version 3.0.22-stable.
+  * Update all patches.
+  * Upgrade to Standards-Version 3.9.5 (no changes).
+  * Add upstream GPG signature check.
+  * Convert debian/copyright to DEP5.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 16 Nov 2014 18:38:40 +0100
+
+privoxy (3.0.21-7) unstable; urgency=medium
+
+  * 37_CVE-2015-1380: denial of service.
+  * 38_CVE-2015-1381: multiple segmentation faults and memory leaks in the
+    pcrs code.
+  * 39_CVE-2015-1382: invalid read.
+  * These 3 patches Closes: #776490.
+
+ -- Roland Rosenfeld <roland@debian.org>  Wed, 28 Jan 2015 19:46:42 +0100
+
+privoxy (3.0.21-5) unstable; urgency=low
+
+  * 34_CVE-2015-1030: Fix memory leak in rfc2553_connect_to().  CID 66382
+  * 35_CVE-2015-1031-CID66394: unmap(): Prevent use-after-free if the map 
+    only consists of one item.  CID 66394.
+  * 36_CVE-2015-1031-CID66376: pcrs_execute(): Consistently set *result to
+    NULL in case of errors.  Should make use-after-free in the caller less
+    likely.  CID 66391, CID 66376.
+  * These 3 patches Closes: #775167.
+  
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 12 Jan 2015 08:44:23 +0100
+
+privoxy (3.0.21-4) unstable; urgency=low
+
+  * Enable hardening=+all
+  * Hardcode PIDFile in privoxy.service, since this isn't allowed as
+    variable (Closes: #746262).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 10 May 2014 14:19:03 +0200
+
+privoxy (3.0.21-3) unstable; urgency=low
+
+  * When starting via systemd, do not run daemon as root, and honour log
+    file configuration. Thanks to Carlos Maddela for providing a patch
+    (Closes: #745274)
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 21 Apr 2014 17:24:01 +0200
+
+privoxy (3.0.21-2) unstable; urgency=low
+
+  * Use autotools-dev for arm64 compatibility (Closes: #727948).
+  * Depend on initscripts >= 2.87dsf-8, (Closes: #564563).
+  * Add systemd support (Thanks to Michael Stapelberg) (Closes: #639635).
+  * Upgrade to Standards-Version 3.9.5 (no changes).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 12 Apr 2014 12:54:58 +0200
+
+privoxy (3.0.21-1) unstable; urgency=low
+
+  * New upstream version 3.0.21-stable.
+  * This fixes CVE-2013-2503 (Closes: #702896).
+  * Update all patches.
+  * Upgrade to Standards-Version 3.9.4 (no changes).
+
+ -- Roland Rosenfeld <roland@debian.org>  Fri, 05 Jul 2013 14:46:54 +0200
+
+privoxy (3.0.20-1) unstable; urgency=low
+
+  * New upstream version 3.0.20-beta.
+  * Update all patches.
+  * Remove 29_typos, which is incorporated upstream now.
+  * 33_manpage_hyphen: Replace all -- in man page by \-\- to make lintian
+    happy.
+
+ -- Roland Rosenfeld <roland@debian.org>  Thu, 24 Jan 2013 17:40:51 +0100
+
+privoxy (3.0.19-2+deb7u2) wheezy-security; urgency=medium
+
+  * 38_CVE-2015-1381: multiple segmentation faults and memory leaks in the
+    pcrs code.
+  * 39_CVE-2015-1382: invalid read.
+  * These 2 patches Closes: #776490 in wheezy.
+
+ -- Roland Rosenfeld <roland@debian.org>  Wed, 28 Jan 2015 20:33:47 +0100
+
+privoxy (3.0.19-2+deb7u1) stable-security; urgency=medium
+
+  * 35_CVE-2015-1031-CID66394: unmap(): Prevent use-after-free if the map 
+    only consists of one item.  CID 66394.
+  * 36_CVE-2015-1031-CID66376: pcrs_execute(): Consistently set *result to
+    NULL in case of errors.  Should make use-after-free in the caller less
+    likely.  CID 66391, CID 66376.
+  * These 2 patches Closes: #775167.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 17 Jan 2015 17:20:15 +0100
+
+privoxy (3.0.19-2) unstable; urgency=low
+
+  * Migrate from dpatch to 3.0 (quilt) format.
+  * Reformat all patches.
+  * Change build depenency from dpatch to debhelper (>= 9).
+  * Change debian/compat to "9".
+  * Complete rewrite of debian/rules.
+  * Now uses hardening via debhelper.
+  * Remove README.source.
+  * Update to Standards-Version 3.9.3 (no changes).
+
+ -- Roland Rosenfeld <roland@debian.org>  Fri, 18 May 2012 21:24:55 +0200
+
+privoxy (3.0.19-1) unstable; urgency=low
+
+  * New upstream version 3.0.19-stable.
+  * Adapt all patches to new version.
+
+ -- Roland Rosenfeld <roland@debian.org>  Tue, 27 Dec 2011 11:19:53 +0100
+
+privoxy (3.0.18-1) unstable; urgency=low
+
+  * New upstream version 3.0.18-stable.
+  * Adapt all patches to new version.
+  * Add build-targets build-arch and build-indep.
+  * Upgrade to Standards-Version 3.9.2 (no changes).
+  * 29_typo: most old typos are fixed now, but lintian found new ones.
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 21 Nov 2011 19:29:06 +0100
+
+privoxy (3.0.17-1) unstable; urgency=low
+
+  * New upstream version 3.0.17-stable (Closes: #611016).
+  * Adapt all patches to the new version.
+  * Add debian/source/format (1.0).
+  * 29_typos: fix spelling of resource in privoxy-log-parser(1) man page.
+  * Upgrade to Standards-Version 3.9.1 (no changes).
+  * Add $named to Required-Start/Stop in init script. Thanks to Nikolaus
+    Schulz <microschulz@web.de> (Closes: #539405, #582710)
+  * Install /etc/privoxy/user.filter
+
+ -- Roland Rosenfeld <roland@debian.org>  Tue, 01 Mar 2011 21:10:26 +0100
+
+privoxy (3.0.16-1+deb6u1) squeeze-lts; urgency=medium
+
+  * Non-maintainer upload by the Squeeze LTS team.
+  * Thanks to Roland Rosenfeld for maintaining privoxy and preparing these
+    patches:
+    - 35_CVE-2015-1031-CID66394: unmap(): Prevent use-after-free if the map
+      only consists of one item.  CID 66394.
+    - 36_CVE-2015-1031-CID66376: pcrs_execute(): Consistently set *result to
+      NULL in case of errors.  Should make use-after-free in the caller less
+      likely.  CID 66391, CID 66376.
+    - 38_CVE-2015-1381: multiple segmentation faults and memory leaks in the
+      pcrs code.
+    - 39_CVE-2015-1382: invalid read.
+
+ -- Holger Levsen <holger@debian.org>  Wed, 28 Jan 2015 19:44:30 +0100
+
+privoxy (3.0.16-1) unstable; urgency=low
+
+  * New upstream version 3.0.16-stable.
+  * Adapt all patches to the new version.
+  * 30_localhost_fixup: removed, since this should no longer be necessary.
+  * 31_handle-as-empty-doc-returns-ok: now included upstream.
+  * 32_bind_fixup: Work around bind problems on startup (Closes: #534735).
+
+ -- Roland Rosenfeld <roland@debian.org>  Tue, 18 May 2010 10:14:18 +0200
+
+privoxy (3.0.15-3) unstable; urgency=low
+
+  * Add Build-Dependency on docbook because docbook-xml which may be
+    chained via docbook-dsssl as an alternative to docbook may not be
+    enough on a unclean build environment. This should now also build on
+    the mips buildd.
+  * 31_handle-as-empty-doc-returns-ok: Patch from SourceForge that work2
+    around Firefox bug to wait forever if proxy returns a failure status
+    code in response to the CONNECT (Closes: #561126).
+
+ -- Roland Rosenfeld <roland@debian.org>  Fri, 25 Dec 2009 11:30:29 +0100
+
+privoxy (3.0.15-2) unstable; urgency=low
+
+  * 30_localhost_fixup: Remove workaround for "localhost" listen-address,
+    which should solve all problems with privoxy not starting. 
+    (Closes: #534735).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 13 Dec 2009 10:09:11 +0100
+
+privoxy (3.0.15-1) unstable; urgency=low
+
+  * New upstream version 3.0.15-beta.
+  * Adapted all patches to the new upstream version.
+  * Added debian/README.source (from dpatch package) to explain how dpatch
+    works.
+  * Upgrade to Standards-Version 3.8.3 (no changes).
+  * 29_typos: fix some common typos.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 14 Nov 2009 14:22:31 +0100
+
+privoxy (3.0.14-1) unstable; urgency=low
+
+  * New upstream version 3.0.14-beta.
+  * Adapted all patches to the new upstream version.
+  * --enable-no-gifs (uses PNG instead of GIF in replacement files).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 26 Jul 2009 12:06:00 +0200
+
+privoxy (3.0.13-1) unstable; urgency=low
+
+  * New upstream version 3.0.13-beta.
+  * Adapted all patches to the new upstream version.
+  * Removed 03_ipv6, because IPv6 is now supported upstream.
+  * Upgrade to Standards-Version 3.8.1 (no changes)
+  * Fix matcha-all.action typo in debian/postinst (Closes: #534270).
+
+ -- Roland Rosenfeld <roland@debian.org>  Tue, 23 Jun 2009 15:09:08 +0200
+
+privoxy (3.0.12-2) unstable; urgency=low
+
+  * 03_ipv6: Use s6_addr instead of in6_u, which is not portable.
+
+ -- Roland Rosenfeld <roland@debian.org>  Wed, 25 Mar 2009 21:41:20 +0100
+
+privoxy (3.0.12-1) unstable; urgency=low
+
+  * New upstream version 3.0.12-stable.
+  * Adapt all patches to new upstream version.
+  * Remove 30_quiet_start, because this is provided upstream now.
+
+ -- Roland Rosenfeld <roland@debian.org>  Wed, 25 Mar 2009 13:27:30 +0100
+
+privoxy (3.0.11-1) unstable; urgency=low
+
+  * New upstream version 3.0.11-stable.
+  * 19_manpage_fixup incorporated upstream now.
+  * 24_global_action is incorporated upstream in a similar way.
+  * postinst: try to make removal of standards.action and global.action
+    and new file match-all.action smooth to a user who does not want to
+    modify his config file.
+  * 30_quiet_start: Suppress INFO log messages on stderr at program startup.
+  * Stop redirecting stderr to errorlog file but print all config file
+    errors to stderr at startup.  This closes the stderr filehandle since
+    upstream fixed the behavior in jcc.c 1.153.
+    This also solves the problem, that syntax errors in config file
+    weren't noticed, cause they are written to the console on start now
+    (Closes: #375174)
+  * Modify init.d script to be more lsb compliant.
+    Depends on lsb-base (>= 3.2-13) 
+  * Allow disabling privoxy via RUN_DAEMON=no in /etc/default/privoxy.
+    (Closes: #482563).
+  * Update README.Debian to fit all changes.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 22 Feb 2009 22:07:08 +0100
+
+privoxy (3.0.10-2) unstable; urgency=low
+
+  * IPv6 patch added again: 03_ipv6: privoxy-3.0.10-ipv6-all-6.diff by
+    Petr PÃ­saÅ™ (Closes: #179461).
+    It seems that the old bugs #391600 and #393605, which appeared with 
+    the previous version, are fixed now.
+  * 28_listen_localhost: Listen on localhost:8118 instead of 127.0.0.1:8118,
+    because this is independent from localhost IP (127.0.0.1 vs. 127.0.1.1)
+    and also supports IPv6 (Closes: #512888).
+  * 05_default_action: unblock qa.debian.org/popcon-graph.php (Closes: #479525)
+  * Create log dir in init script, if it does not exist (Closes: #491423).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 15 Feb 2009 13:39:10 +0100
+
+privoxy (3.0.10-1) UNRELEASED; urgency=low
+
+  * Not released to Debian but only on sourceforge.net.
+  * New upstream version 3.0.10-stable (Closes: #499324).
+  * Install privoxy-log-parser into /usr/bin.
+  * Add lintian-override for libtool warnings according pcre, because we
+    do not use this version of pcre but the one from libpcre3-dev.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 20 Sep 2008 17:33:30 +0200
+
+privoxy (3.0.9-1) unstable; urgency=low
+
+  * New upstream version 3.0.9-beta.
+  * Upgrade all patches to new version:
+    - 20_makefile_fixup included upstream.
+  * The new version doesn't support PDF documentation any more, so remove
+    it from the Debian package.
+    -> Stop Build-Depending on htmldoc.
+  * The new version doesn't support text/plain documentation any more, so
+    remove it from the Debian package.
+  * Upgrade to Standards-Version 3.8.0 (no changes)
+  * Move documentation from doc-base section Apps/Net to Network/Web Browsing.
+  * chown user:group instead of user.group in postinst to be more compatible.
+  * 05_defaut_action: unblock qa.debian.org/popcon.php (Closes: #479525).
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 07 Jul 2008 22:35:17 +0200
+
+privoxy (3.0.8-1) unstable; urgency=low
+
+  * New upstream release 3.0.8-stable.
+  * Upgrade all patches to new version.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 20 Jan 2008 22:19:02 +0100
+
+privoxy (3.0.7-2) unstable; urgency=low
+
+  * Remove trailing space from debian/patches/00list to make lintian happy.
+  * postinst: On upgrade from 3.0.6 and below the config file format
+    changed: actionsfile now needs filename.action as parameter instead of
+    filename. Fix this config file change in postinst if necessary.
+    (Closes: #456274).
+  * Upgrade to Standards-Version 3.7.3 (no changes).
+  * 19_manpage_fixup: Replace "Ã¶" by "\[:o]" in privoxy.8.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 12 Jan 2008 16:02:14 +0100
+
+privoxy (3.0.7-1) unstable; urgency=low
+
+  * New upstream version 3.0.7-beta.
+  * Adapt all patches to new version.
+  * Enable new zlib feature (Closes: #368448):
+    - build-depend on zlib1g-dev
+    - disable prevent-compression in 25_standard_medium.dpatch
+  * Remove 28_pcre_returncode.dpatch, which is now applied upstream.
+  * Remove 23_fix_faq_id.dpatch, which is now applied upstream.
+  * Fix Homepage header in control file.
+  * 05_defaut_action: disable filter{js-annoyances} for
+    http://www.memo.de/ (Closes: #441256).
+  * Update debian/watch file based on an idea of Raphael Geissert.
+    (Closes: #449643)
+
+ -- Roland Rosenfeld <roland@debian.org>  Tue, 11 Dec 2007 19:34:35 +0100
+
+privoxy (3.0.6-4) unstable; urgency=low
+
+  * Set "enable-remote-http-toggle 0" by default because otherwise
+    requests may be able to bypass filtering by setting "X-Filter: No"
+    headers using some strange javascript code.
+  * Disable default logging of every GET/POST/CONNECT request to protect
+    your privacy a bit more.
+  * 05_defaut_action: Stop blocking Andorra ccTLD (.ad) (Closes: #445461).
+  * Run make clean/distclean only if GNUmakefile exists in debian/rules.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 21 Oct 2007 12:47:51 +0200
+
+privoxy (3.0.6-3) unstable; urgency=low
+
+  * According to http://wiki.debian.org/AccountHandlingInMaintainerScripts
+    removing system users in postrm isn't a good idea. So the removal of
+    user privoxy in postrm was disabled and deluser/adduser of existing
+    user in postinst was also removed. This should avoid problems with
+    purging privoxy if passwd package isn't installed (Closes: #417015).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 19 May 2007 21:22:42 +0200
+
+privoxy (3.0.6-2) unstable; urgency=medium
+
+  * 28_pcre_returncode: Don't crash if pcre returns an error code that
+    pcrs didn't expect (Closes: #404284).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 23 Dec 2006 21:47:12 +0100
+
+privoxy (3.0.6-1) unstable; urgency=low
+
+  * New upstream release 3.0.6.
+    - remove 28_usermanual_slash.dpatch, which is already included
+      upstream now.
+  * README.Debian: mention that privoxy has to be used as HTTP proxy to
+    access http://p.p/ URLs (Closes: #398162).
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 20 Nov 2006 19:29:27 +0100
+
+privoxy (3.0.5-beta-3) unstable; urgency=medium
+
+  * Disable the IPv6 patch, because this is seems to have too many bugs
+    for a release right now.  
+    - This reopens #179461.
+    - This solves the problem, that "listen-address :8118" listens on
+      localhost only (Closes: #391600).
+    - This solves the problem, that regex pattern at front of hostname
+      is ignored (Closes: #393605). 
+  * Use /usr/share/dpatch/dpatch.make in debian/rules instead of adding
+    the content by hand.
+  * Extended version of 26_edit_only_writable.dpatch by Fabian Keil.  Now
+    shows a message, that the file is write protected.  See SF#1564026.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 22 Oct 2006 11:53:02 +0200
+
+privoxy (3.0.5-beta-2) unstable; urgency=low
+
+  * 27_remove_nsl.dpatch: Remove unnecessary linking against libnsl.
+  * 28_usermanual_slash.dpatch: Redirect http://p.p/user-manual (without
+    trailing slash) to http://p.p/user-manual/ (with trailing slash),
+    otherwise the links will be broken (Closes: #244931).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat,  7 Oct 2006 13:12:13 +0200
+
+privoxy (3.0.5-beta-1) unstable; urgency=low
+
+  * New upstream version 3.0.5-beta.
+  * hide-referrer{foo} now allows everything as a forged referrer not 
+    only http/https URLs and ignoring invalid URLs (Closes: #258193).  
+  * Fixes the name of the filter from "popups" to "all-popups" in
+    user.action. (Closes: #385886).
+  * Block http://www.google-analytics.com/urchin.js because this is used
+    for cross site user tracking according to
+    http://www.google.com/analytics/ (Closes: #340913).
+  * Adapted all patches to this version.
+  * The following patches are incorporated upstream now, so they are no
+    longer needed: 01_local_usermanual.dpatch, 04_nomultiproxy.dpatch,
+    07_typos.dpatch, 08_log_pthread.dpatch, 09_no_identity.dpatch,
+    12_multiple-filters.dpatch, 13_memory.dpatch, 18_dns_retry.dpatch.
+  * 20_makefile_fixup.dpatch: Fix a syntax error in the GNUmakefile.in.
+  * 05_default_action.dpatch: main parts are incorporated upstream now.
+  * 05_default_action.dpatch: disable filter ie-eploits for amazon.de,
+    cause they use %01 and %02 as delimiters for multipage results
+    (Closes: #243245).
+  * 03_ipv6.dpatch: Add IPv6 support (Closes: #179461).
+  * 23_fix_faq_id.dpatch: Fix value of id attribute in <sect2> tag (no
+    underscore allowed) of faq.sgml.
+  * 24_global_action.dpatch: Move the global default for all pages (/)
+    from default.action to global.action to make updates with local
+    configurations easier.
+  * 25_standard_medium.dpatch: Change the global default from
+    standard.Cautious to standard.Medium, which is similar to the old
+    3.0.3 behavior and doesn't change too much (only
+    filter{js-annoyances}, filter{html-annoyances} and
+    filter{unsolicited-popups} are switched off now additionally because
+    they often cause trouble by using very much CPU time).
+  * 26_edit_only_writable.dpatch: Hide the edit button on
+    http://p.p/show-status if action file can not be written by the
+    privoxy user.
+  * default.action and standard.action are no longer owned by privoxy but
+    by root to show that these files are maintained upstream while users
+    should maintain their local changes in global.action and user.action.
+  * Add LSB compliance to init.d script (INIT INFO and status).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 23 Sep 2006 23:37:03 +0200
+
+privoxy (3.0.3-2-2) unstable; urgency=low
+
+  * Upgrade to Standards-Version 3.7.2 (no changes).
+  * 17_502_no_such_domain.dpatch: Changes the 404 HTTP status code of the
+    "No such Domain" template to 502 Bad Gateway, which seems to be more
+    correct according to http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+    (Closes: #380389).
+  * Disable filter{js-annoyances} and filter{unsolicited-popups} for
+    .cnrs.fr and blogs.msdn.com, because these sites consume very much CPU
+    time otherwise (Closes: #377843).
+  * 18_dns_retry.dpatch by Fabian Keil <fk@fabiankeil.de>: 10 retries
+    before giving up DNS lookup. This hopefully Closes: #335660.
+  * 19_manpage_fixup.dpatch:
+    - Convert Latin-1 char Ã¡ to groff equivalent in man page.
+    - Quote minus signs to differentiate them from hyphens.
+  * Do not filter{banners-by-size} on .w3.org pages, because these often
+    contain validator icons (Closes: #319025).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat,  5 Aug 2006 15:15:17 +0200
+
+privoxy (3.0.3-2-1) unstable; urgency=low
+
+  * New upstream version 3.0.3-2.
+  * Add debian/watch file.
+  * Remove parts of 13_memory.dpatch, which seems to free too much
+    memory (Closes: #353110, #354611).
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 27 Feb 2006 23:28:52 +0100
+
+privoxy (3.0.3-6) unstable; urgency=low
+
+  * Now hopefully really redirect all output of logrotate to /dev/null
+    (Closes: #314868).
+  * Migrate all patches to dpatch mechanism.
+  * Upgrade to debhelper 5.
+  * Call htmldoc with parameter --no-embedfonts to keep PDF files small.
+  * Build-Depends on htmldoc (>= 1.8.25-1), because older versions caused
+    broken PDF documentation on 64bit systems.
+  * Fix some typos in user-manual.
+  * Add multiple filter file support (from CVS) (Closes: #201177).
+  * Fix some memory leaks, mallocs, double frees (from CVS).
+  * Remove CVS $-tags from config files to make it easier for users to
+    keep the configuration in a VCS (Closes: #350799).
+  * Remove trailing spaces from all config files now.
+  * Build man page (and HTML version of it) at build time.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 11 Feb 2006 21:27:14 +0100
+
+privoxy (3.0.3-5) unstable; urgency=low
+
+  * Redirect output of restart script in logrotate to /dev/null
+    (Closes: #314868).
+  * Upgrade to Standards-Version 3.6.2:
+    - Recommends: doc-base
+  * Build-Depends on autotools-dev and copy config.guess and config.sub
+    from there on every build (Closes: #332767).
+  * After dechunking remove the "chunked"-header instead of replacing it
+    by an d"identity" header. Thanks to Michael Shields for reporting this
+    (Closes: #318683).
+  * Update address of FSF in copyright file.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun,  9 Oct 2005 13:44:55 +0200
+
+privoxy (3.0.3-4) unstable; urgency=low
+
+  * Stop converting entities to 8bit chars in the documentation 
+    (Closes: #203697).
+  * Fix typos ('persistant' and 'Januar') in man page and man page sources
+    (Closes: #302145).
+  * Restart privoxy in logrotate script instead of sendig a kill -HUP, to
+    triggering reopen of log files (Closes: #285059).
+  * Apply patch by Jindrich Makovicka to fix race conditions in log
+    writing functions (Closes: #299662).
+  * Stop hiding referrer for www.petitiononline.com/mod_perl/signed.cgi,
+    because this site does not work otherwise (Closes: #250407).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 15 May 2005 15:28:56 +0200
+
+privoxy (3.0.3-3) unstable; urgency=low
+
+  * Now really remove multiproxy.org from all documentation, not only from
+    the config file (Closes: #198953). 
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 15 Feb 2004 23:11:29 +0100
+
+privoxy (3.0.3-2) unstable; urgency=low
+
+  * no banners-by-side on "/valid-" images, because that's usually from
+    validator.w3.org (Closes: #221009).
+  * Upgrade to Standards-Version 3.6.1 (no changes).
+  * Add Homepage URL to the package description.
+  * If the privoxy user is already existing as a non-system user in
+    postinst, this no longer fails, but deletes the non-system user before
+    adding it again as a system user (Closes: #232724).
+  * Use deluser instead of userdel in postrm.
+  * Redirect stderr of privoxy to /var/log/privoxy/errfile to avoid
+    problems with kept open file descriptors (Closes: #200712).
+  * Remove comment from config file, which points to list of open proxies
+    at multiproxy.org (Closes: #198953).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 15 Feb 2004 15:13:27 +0100
+
+privoxy (3.0.3-1) unstable; urgency=low
+
+  * New upstream version 3.0.3.
+    - This introduces workarounds for server (PHP <4.2.3) bugs including
+      the "blank page" problem (Closes: #215231).
+    - Avoid the conversion of "open" in scripts to "PrivoxyWindowOpen"
+      (Closes: #197995). 
+    - "advocancy" is no longer blocked (Closes: #202042).
+    - Fixed yet another two memory leaks (Closes: #215911).
+  * Stop backup of pdf directory, because it is no longer contained in the
+    upstream package.
+  * Create doc/pdf, which is missing upstream.
+  * disable filter{unsolicited-popups} for www.perl.com/language/newdocs/pod/ 
+    to avoid problems with "PrivoxyWindowOpen" in Perl manuals
+    (Closes: #195311).
+  * Apply patch make privoxy compilable on woody where htmldoc --version
+    doesn't exist (Closes: #216524).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 31 Jan 2004 11:25:53 +0100
+
+privoxy (3.0.2-5) unstable; urgency=low
+
+  * Merge corrections from upstream default.action 1.7.
+    - demoronizer filter (which caused trouble on non latin1 charsets) is
+      now switched off by default (Closes: #202234).
+
+ -- Roland Rosenfeld <roland@debian.org>  Tue,  9 Sep 2003 21:31:51 +0200
+
+privoxy (3.0.2-4) unstable; urgency=low
+
+  * Add a versioned build dependency on htmldoc (>= 1.8.20), because there
+    seem to be some options mission in the old 1.8.17 (Closes: #192457).
+  * Merge rotation of logfile and jarfile in logrotate script.
+  * Test whether /var/run/privoxy.pid is existing and don't bother when no
+    privoxy is running in logrotate script (Closes: #191838).
+  * Remove /var/run/privoxy.pid on privoxy stop in init.d script.
+  * Mention apt-get instead of dpkg in user-manual (Closes: #189239).
+  * Remove trailing whitespace from text versions of user-manual,
+    developer-manual and faq (Closes: #192566).
+
+ -- Roland Rosenfeld <roland@debian.org>  Fri,  9 May 2003 08:21:30 +0200
+
+privoxy (3.0.2-3) unstable; urgency=low
+
+  * Stop filtering favicon.ico, which may cause trouble (Closes: #188947).
+  * Send SIGHUP to privoxy instead of touching /etc/provoxy/config in
+    logrotate script to tell privoxy that the logfiles were rotated
+    (Closes: #189240).
+  * Remove trailing spaces from config file (Closes: #189240).
+  * Install man page as privoxy(8) instead of privoxy(1), because this is
+    a system binary.
+  * Build HTML, text, and PDF versions of the documentation from source.
+  * Fix setting of dodk in configure.in.
+  * Add option "--linkcolor #0000ff" to htmldoc call in ldp_print to be
+    independent of ~/.htmldocrc color setting.
+  * Mention PDF and text version of the documentation in doc-base files.
+  * Install PDF version of the documentation, too.
+  * Install HTML version of the man page, too.
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 21 Apr 2003 11:11:31 +0200
+
+privoxy (3.0.2-2) unstable; urgency=low
+
+  * Don't apply any filters to {bugs|lists}.debian.org (Closes: #186537).
+  * Prepend "http://config.privoxy.org" before "/user-manual/" to always
+    get a correct URL for the local user-manual (also on 404 error pages).
+    (Closes SF-719724).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 13 Apr 2003 12:49:15 +0200
+
+privoxy (3.0.2-1) unstable; urgency=low
+
+  * New upstream version 3.0.2.
+  * Update Standards-Version to 3.5.9 (no changes).
+
+ -- Roland Rosenfeld <roland@debian.org>  Wed, 26 Mar 2003 19:45:07 +0100
+
+privoxy (3.0.0-6) unstable; urgency=low
+
+  * Fixed a bug in local user-manual patch, which failed when accessing
+    http://config.privoxy.org/user-manual/ (without a file name).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun,  2 Mar 2003 13:40:48 +0100
+
+privoxy (3.0.0-5) unstable; urgency=low
+
+  * Stop build-depending on special versions of libc6-dev and gcc.
+    Hopefully all auto-builders run new versions which shouldn't cause
+    trouble (Closes: #182267)  
+
+ -- Roland Rosenfeld <roland@debian.org>  Mon, 24 Feb 2003 19:07:11 +0100
+
+privoxy (3.0.0-4) unstable; urgency=low
+
+  * Set "enable-edit-actions 0" and "enable-remote-toggle 0" in config
+    file, instead of simply commenting out these two lines.  Mention this
+    configuration change in README.Debian (Closes: #172965, #172966).
+  * Add new "cgi" user-manual, which sends the user manual to the client
+    and activate it in config file (Closes: #148128).
+  * Build-Depend on libc6-dev (>> 2.2.5) to avoid problems with pthread
+    (Closes: #158306, #162693).
+  * Don't search for user bsmtp in /etc/passwd before using adduser.
+    adduser handles already existing users correct.
+  * Remove /etc/provoxy on purge (Closes: #164039).
+  * Upgrade to Standards-Version 3.5.8:
+    - remove support for DEB_BUILD_OPTION "debug"
+    - add support for DEB_BUILD_OPTION "noopt"
+  * Upgrade to debhelper >=4 and use debian/compat instead of DH_COMPAT.
+  * Upgrade config.guess and config.sub (from autotools-dev 20030110.1).
+  * Remove no-pthread workaround for hppa and build-depend on gcc >=3.2.2,
+    which supports -pthread on hppa, too.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 23 Feb 2003 13:34:11 +0100
+
+privoxy (3.0.0-3) unstable; urgency=low
+
+  * Add aliases "wafer" and "vanilla-wafer" for "send-wafer" and
+    "send-vanilla-wafer" to actionlist to provide backward compatibility
+    to 2.9.14 (Closes: #154647).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun,  8 Sep 2002 11:43:38 +0200
+
+privoxy (3.0.0-2) unstable; urgency=low
+
+  * Recompile with libc6 from testing (instead of unstable).
+
+ -- Roland Rosenfeld <roland@debian.org>  Fri,  6 Sep 2002 17:32:35 +0200
+
+privoxy (3.0.0-1) unstable; urgency=low
+
+  * New upstream version (Closes: #158613).
+  * Remove version number from config file, to avoid changing it on every
+    new upstream version.  Sorry, this time you will still be bothered...
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun,  1 Sep 2002 18:58:07 +0200
+
+privoxy (2.9.20-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 11 Aug 2002 11:05:01 +0200
+
+privoxy (2.9.18-2) unstable; urgency=low
+
+  * Disable docbook, we use the precompiled docs (Closes: #155989).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 10 Aug 2002 09:36:58 +0200
+
+privoxy (2.9.18-1) unstable; urgency=low
+
+  * New upstream version.
+  * Use start-stop-daemon for starting privoxy to avoid problems on start,
+    when privoxy is already running (Closes: #154882).
+  * Undo broken -Ipcre inclusion in GNUmakefile.in, which causes trouble
+    with using wrong pcreposix.h.
+
+ -- Roland Rosenfeld <roland@debian.org>  Thu,  8 Aug 2002 21:01:48 +0200
+
+privoxy (2.9.16-1) unstable; urgency=low
+
+  * New upstream version.
+  * Exclude CVS files from dh_installdocs (when compiling from CVS).
+  * Add user.action and standard.action to /etc/privoxy.
+  * Install images for html version of documentation.
+  * Do no longer build html and txt versions of documentation using
+    docbook, but use the converted versions which come with the upstream
+    package.
+  * default.action fixed upstream: "downloads" no longer blocked 
+    (Closes: #148290).
+  * default.filter fixed upstream: Made WeBugs job ungreedy (Closes: #149450).
+  * Remove the "beta" from the version number (the final release will be
+    named 3.0, so it's superfluous).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 27 Jul 2002 18:55:11 +0200
+
+privoxy (2.9.14-beta-4) unstable; urgency=low
+
+  * Damn, why did I write "i386-linux" into the rules file, when I try to
+    write a work around for hppa?  Fixed now (Closes: #148227).
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 26 May 2002 22:33:26 +0200
+
+privoxy (2.9.14-beta-3) unstable; urgency=low
+
+  * Fix typo ('[' instead of '{') in default.action (Closes: #148122).
+  * Disable edit-actions and remote-toggle in config file by default
+    (Closes: #148125).
+  * Use --disable-pthread on hppa, to avoid problem with hppa gcc not
+    supporting -pthread option (Closes: #148117).
+  * Install p_doc.css in documentation directory.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 26 May 2002 01:40:18 +0200
+
+privoxy (2.9.14-beta-2) unstable; urgency=low
+
+  * Fix debian/rules clean to really clean.
+  * Change owner of /etc/privoxy/{*.action|trust} to privoxy in postinst,
+    to allow modification of these files web interface (Closes: SF-552144).
+
+ -- Roland Rosenfeld <roland@debian.org>  Thu, 23 May 2002 18:38:27 +0200
+
+privoxy (2.9.14-beta-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sat, 13 Apr 2002 18:05:26 +0200
+
+privoxy (2.9.13-beta-2) unstable; urgency=low
+
+  * Create HTML and ASCII versions of the documentation using docbook now.
+
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 31 Mar 2002 23:53:28 +0200
+
+privoxy (2.9.13-beta-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Roland Rosenfeld <roland@debian.org>  Fri, 29 Mar 2002 11:52:03 +0100
+

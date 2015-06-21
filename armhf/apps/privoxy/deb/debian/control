@@ -1,0 +1,24 @@
+Source: privoxy
+Section: web
+Priority: optional
+Maintainer: Roland Rosenfeld <roland@debian.org>
+Build-Depends: debhelper (>= 9), autoconf, autotools-dev, libpcre3-dev,
+ jade, docbook-dsssl, docbook, w3m, sp, sgmlspl, groff, man2html, zlib1g-dev,
+ dh-systemd (>= 1.4)
+Standards-Version: 3.9.5
+Homepage: http://www.privoxy.org/
+
+Package: privoxy
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, logrotate,
+ adduser, lsb-base (>= 3.2-13), initscripts (>= 2.87dsf-8)
+Recommends: doc-base
+Description: Privacy enhancing HTTP Proxy
+ Privoxy is a web proxy with advanced filtering capabilities for
+ protecting privacy, filtering web page content, managing cookies,
+ controlling access, and removing ads, banners, pop-ups and other
+ obnoxious Internet junk. Privoxy has a very flexible configuration
+ and can be customized to suit individual needs and tastes. Privoxy
+ has application for both stand-alone systems and multi-user networks.
+ .
+ Privoxy is based on Internet Junkbuster (tm).

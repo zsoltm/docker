@@ -1,0 +1,83 @@
+#!/usr/bin/make -f
+#
+# (c) 2002-2014 Roland Rosenfeld <roland@debian.org>
+#
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+#export DH_OPTIONS=-v
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+DEBDIR=`pwd`/debian/privoxy
+
+%:
+	dh $@ --with autotools_dev --with systemd
+
+override_dh_auto_configure:
+	autoheader
+	autoconf
+	dh_auto_configure -- \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--enable-zlib \
+		--enable-no-gifs \
+		--with-docbook=/usr/share/sgml/docbook/stylesheet/dsssl/modular
+
+override_dh_auto_build:
+	$(MAKE)
+	$(MAKE) dok
+	rm -f doc/webserver/user-manual/*.bak
+	env -u LANG $(MAKE) man
+	$(MAKE) man2html
+
+override_dh_clean:
+	[ ! -f GNUmakefile ] || $(MAKE) clean
+	[ ! -f GNUmakefile ] || $(MAKE) distclean
+	rm -f configure config.h GNUmakefile
+	rm -f privoxy.8
+	rm -rf obj
+	rm -f ActivityConsole.jar
+	rm -f src/java/org/privoxy/activityconsole/*.class
+	rm -f doc/source/ldp.dsl
+	rm -rf doc/source/temp
+	dh_clean -Xrc.privoxy.orig
+
+override_dh_auto_install:
+	install -m 0755 privoxy $(DEBDIR)/usr/sbin/privoxy
+	install -m 644 config $(DEBDIR)/etc/privoxy/config
+	install -m 0644 default.action $(DEBDIR)/etc/privoxy/default.action
+	install -m 0644 match-all.action $(DEBDIR)/etc/privoxy/match-all.action
+	install -m 0644 user.action $(DEBDIR)/etc/privoxy/user.action
+	install -m 0644 default.filter $(DEBDIR)/etc/privoxy/default.filter
+	install -m 0644 user.filter $(DEBDIR)/etc/privoxy/user.filter
+	install -m 0644 trust $(DEBDIR)/etc/privoxy/trust
+
+	install -m 0755 tools/privoxy-log-parser.pl \
+		$(DEBDIR)/usr/bin/privoxy-log-parser
+	pod2man tools/privoxy-log-parser.pl \
+		> $(DEBDIR)/usr/share/man/man1/privoxy-log-parser.1
+
+	cp -r templates $(DEBDIR)/etc/privoxy/
+	rm -f $(DEBDIR)/etc/privoxy/templates/*~
+	rm -rf $(DEBDIR)/etc/privoxy/templates/CVS
+
+#	Remove CVS tags and trailing spaces from config files:
+	find $(DEBDIR)/etc/privoxy -type f \
+	| xargs grep -l '\$$[A-Z][^$$]*:[^$$]*\$$' \
+	| while read f; do \
+	    sed -e 's/\$$\(Id: [^$$]*,v\)[^$$]*\$$/\1/' \
+		-e 's/\$$\(Source: [^$$]*\)\$$/\1/' \
+		-e 's/\$$\(Log: [^$$]*\)\$$/\1/' \
+		-e 's/ *$$//' < $$f > $$f.new; \
+	    mv -f $$f.new $$f; \
+	done
+
+override_dh_installdocs:
+	dh_installdocs -XCVS
+	(cd $(DEBDIR)/usr/share/doc/privoxy/; \
+	 mv privoxy-index.html index.html)
+
+override_dh_perl:
+#	We only need perl-base:
+	dh_perl -d

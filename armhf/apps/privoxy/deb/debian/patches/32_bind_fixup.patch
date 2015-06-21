@@ -1,0 +1,28 @@
+Author: Roland Rosenfeld <roland@debian.org>
+Description: Work around bind problems on startup (Closes: #534735)
+Bug-Debian: http://bugs.debian.org/534735
+
+--- a/jbsockets.c
++++ b/jbsockets.c
+@@ -850,20 +850,7 @@
+    }
+ 
+    memset(&hints, 0, sizeof(struct addrinfo));
+-   if (hostnam == NULL)
+-   {
+-      /*
+-       * XXX: This is a hack. The right thing to do
+-       * would be to bind to both AF_INET and AF_INET6.
+-       * This will also fail if there is no AF_INET
+-       * version available.
+-       */
+-      hints.ai_family = AF_INET;
+-   }
+-   else
+-   {
+-      hints.ai_family = AF_UNSPEC;
+-   }
++   hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;
+    hints.ai_protocol = 0; /* Really any stream protocol or TCP only */
