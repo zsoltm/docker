@@ -20,9 +20,9 @@ echo "Fetching gitlab source v${GITLAB_VERSION}..."
 curl -kLSo gitlab-cs-src-${GITLAB_VERSION}.tar.gz\
  https://gitlab.com/gitlab-org/gitlab-ce/repository/archive.tar.gz?ref=v${GITLAB_VERSION}
 mkdir -p ${GITLAB_INSTALL_DIR}
-tar xvf gitlab-cs-src-${GITLAB_VERSION}.tar.gz --strip-components=1 -C ${GITLAB_INSTALL_DIR}
-rm /gitlab-cs-src-${GITLAB_VERSION}.tar.gz
 pushd ${GITLAB_INSTALL_DIR}
+tar xvf /gitlab-cs-src-${GITLAB_VERSION}.tar.gz --strip-components=1 -C ${GITLAB_INSTALL_DIR}
+rm /gitlab-cs-src-${GITLAB_VERSION}.tar.gz
 chown git:git .
 
 # remove HSTS config from the default headers, we configure it in nginx
@@ -50,12 +50,6 @@ cp database.yml.postgresql database.yml
 cp gitlab.yml.example gitlab.yml
 popd
 
-sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
-
-# create symlink to assets in tmp/cache
-#rm -rf tmp/cache
-#ln -sf ${GITLAB_DATA_DIR}/tmp/cache tmp/cache
-
 # install gitlab-shell
 mkdir -p ${GITLAB_LOG_DIR}/gitlab-shell
 chown git:git ${GITLAB_LOG_DIR}/gitlab-shell
@@ -66,6 +60,12 @@ chown git:git ${GITLAB_HOME}/gitlab-shell
 mkdir -p /app/config/ssh
 cp -R ${GITLAB_HOME}/.ssh ${GITLAB_HOME}/.ssh.template
 rm -Rf ${GITLAB_HOME}/repositories  # created by gitlab:shell:install with default config
+
+
+sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
+# create symlink to assets in tmp/cache
+#rm -rf tmp/cache
+#ln -sf ${GITLAB_DATA_DIR}/tmp/cache tmp/cache
 
 # externalise configurations
 rm -rf ${GITLAB_HOME}/.ssh
