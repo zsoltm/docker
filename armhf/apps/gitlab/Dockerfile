@@ -1,6 +1,6 @@
 FROM zsoltm/debian-armhf:jessie
 
-ENV GITLAB_VERSION 7.11.4
+ENV VERSION 7.11.4
 
 COPY assets/ app/
 

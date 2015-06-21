@@ -6,7 +6,7 @@ gitlab-postgresql:
   volumes:
     - /mnt/docker-volumes/gitlab-pgdata:/var/lib/postgresql/data
 gitlab:
-  image: sameersbn/gitlab:7.11.4
+  image: zsoltm/gitlab:7.11.4
   links:
     - gitlab-redis:redis
     - gitlab-postgresql:postgresql

@@ -2,7 +2,7 @@
 
 SETUP_DIR="/app/setup"
 
-GITLAB_VERSION=${GITLAB_VERSION:-7.11.4}  # should normally comes from Dockerfile
+GITLAB_VERSION=${VERSION:-7.11.4}  # should normally comes from Dockerfile
 GITLAB_SHELL_VERSION=2.6.3
 
 SIDEKIQ_CONCURRENCY=${SIDEKIQ_CONCURRENCY:-5}

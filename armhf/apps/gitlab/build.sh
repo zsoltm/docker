@@ -6,11 +6,12 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 prebuiltDeps="$1"
 tmpDir=`mktemp -d`
+version="7.11.4"
 
 if [[ -z "${prebuiltDeps}" || ! -e "${prebuiltDeps}" ]]; then
     echo "Prebuilt dependencies not found; building"
     docker run -it --rm\
-     -e GITLAB_VERSION=${GITLAB_VERSION}\
+     -e VERSION=${version}\
      -v ${DIR}:/mnt/host:ro\
      -v ${tmpDir}:/tmp/out\
      zsoltm/buildpack-deps-armhf:jessie\
@@ -26,6 +27,6 @@ fi
 
 pushd ${tmpDir}
 cp -R "${DIR}/assets" .
-ln -s "${DIR}/Dockerfile"
+cp "${DIR}/Dockerfile" .
 docker build -t zsoltm/gitlab-armhf .
-popd ${tmpDir}
+popd
